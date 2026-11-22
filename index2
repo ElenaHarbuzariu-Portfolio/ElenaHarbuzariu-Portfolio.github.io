@@ -1,0 +1,4257 @@
+<!DOCTYPE html>
+<html lang="en"><head><script data-bard-client-injected="true">(function(){'use strict';window.addEventListener("message",a=>{a.data&&a.data.type==="SUPPLEMENTAL_DATA_UPDATE"&&window.dispatchEvent(new CustomEvent("supplementaldataupdate",{detail:a.data.data}))});}).call(this);
+</script><script data-bard-client-injected="true">(function(){'use strict';var k=typeof Object.defineProperties=="function"?Object.defineProperty:function(a,b,d){if(a==Array.prototype||a==Object.prototype)return a;a[b]=d.value;return a};function m(a){a=["object"==typeof globalThis&&globalThis,a,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var b=0;b<a.length;++b){var d=a[b];if(d&&d.Math==Math)return d}throw Error("Cannot find global object");}var q=m(this);
+function r(a,b){if(b)a:{var d=q;a=a.split(".");for(var c=0;c<a.length-1;c++){var e=a[c];if(!(e in d))break a;d=d[e]}a=a[a.length-1];c=d[a];b=b(c);b!=c&&b!=null&&k(d,a,{configurable:!0,writable:!0,value:b})}}function t(a){function b(c){return a.next(c)}function d(c){return a.throw(c)}return new Promise(function(c,e){function f(g){g.done?c(g.value):Promise.resolve(g.value).then(b,d).then(f,e)}f(a.next())})}function u(a){return t(a())}
+r("Object.values",function(a){return a?a:function(b){var d=[],c;for(c in b)Object.prototype.hasOwnProperty.call(b,c)&&d.push(b[c]);return d}});r("Array.prototype.includes",function(a){return a?a:function(b,d){var c=this;c instanceof String&&(c=String(c));var e=c.length;d=d||0;for(d<0&&(d=Math.max(d+e,0));d<e;d++){var f=c[d];if(f===b||Object.is(f,b))return!0}return!1}});/*
+
+ MIT License
+
+ Copyright (c) 2017-2023 W.Y.
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+*/
+function v(a,b){var d=a.style;b.backgroundColor&&(d.backgroundColor=b.backgroundColor);b.width&&(d.width=`${b.width}px`);b.height&&(d.height=`${b.height}px`);var c=b.style;c!=null&&Object.keys(c).forEach(e=>{d[e]=c[e]})};var aa=(()=>{var a=0;return()=>{a+=1;return`u${`0000${(Math.random()*1679616<<0).toString(36)}`.slice(-4)}${a}`}})();function w(a){var b=[];for(let d=0,c=a.length;d<c;d++)b.push(a[d]);return b}let y=null;function z(a={}){return y?y:a.u?y=a.u:y=w(window.getComputedStyle(document.documentElement))}function A(a,b){return(a=(a.ownerDocument.defaultView||window).getComputedStyle(a).getPropertyValue(b))?parseFloat(a.replace("px","")):0}
+function B(a,b={}){var d;if(!(d=b.width)){d=A(a,"border-left-width");var c=A(a,"border-right-width");d=a.clientWidth+d+c}(b=b.height)||(b=A(a,"border-top-width"),c=A(a,"border-bottom-width"),b=a.clientHeight+b+c);return{width:d,height:b}}function C(a){return new Promise((b,d)=>{var c=new Image;c.onload=()=>{c.decode().then(()=>{requestAnimationFrame(()=>b(c))})};c.onerror=d;c.crossOrigin="anonymous";c.decoding="async";c.src=a})}
+function ba(a){return u(function*(){return Promise.resolve().then(()=>(new XMLSerializer).serializeToString(a)).then(encodeURIComponent).then(b=>`data:image/svg+xml;charset=utf-8,${b}`)})}
+function ca(a,b,d){return u(function*(){var c=document.createElementNS("http://www.w3.org/2000/svg","svg"),e=document.createElementNS("http://www.w3.org/2000/svg","foreignObject");c.setAttribute("width",`${b}`);c.setAttribute("height",`${d}`);c.setAttribute("viewBox",`0 0 ${b} ${d}`);e.setAttribute("width","100%");e.setAttribute("height","100%");e.setAttribute("x","0");e.setAttribute("y","0");e.setAttribute("externalResourcesRequired","true");c.appendChild(e);e.appendChild(a);return ba(c)})}
+var D=(a,b)=>{if(a instanceof b)return!0;a=Object.getPrototypeOf(a);return a===null?!1:a.constructor.name===b.name||D(a,b)};function da(a,b){return z(b).map(d=>{var c=a.getPropertyValue(d),e=a.getPropertyPriority(d);return`${d}: ${c}${e?" !important":""};`}).join(" ")}
+function E(a,b,d,c){a=window.getComputedStyle(a,d);var e=a.getPropertyValue("content");if(e!==""&&e!=="none"){var f=aa();try{b.className=`${b.className} ${f}`}catch(h){return}e=document.createElement("style");var g=e.appendChild;d=`.${f}:${d}`;a.cssText?(c=a.getPropertyValue("content"),c=`${a.cssText} content: '${c.replace(/'|"/g,"")}';`):c=da(a,c);g.call(e,document.createTextNode(`${d}{${c}}`));b.appendChild(e)}};function F(a){return a.search(/^(data:)/)!==-1}function G(a,b,d){return u(function*(){var c=yield fetch(a,b);if(c.status===404)throw Error(`Resource "${c.url}" not found`);var e=yield c.blob();return new Promise((f,g)=>{var h=new FileReader;h.onerror=g;h.onloadend=()=>{try{f(d({v:c,result:h.result}))}catch(l){g(l)}};h.readAsDataURL(e)})})}const H={};function ea(a,b,d){var c=a.replace(/\?.*/,"");d&&(c=a);/ttf|otf|eot|woff2?/i.test(c)&&(c=c.replace(/.*\//,""));return b?`[${b}]${c}`:c}
+function I(a,b,d){return u(function*(){var c=ea(a,b,d.F);if(H[c]!=null)return H[c];d.B&&(a+=(/\?/.test(a)?"&":"?")+(new Date).getTime());try{let f=yield G(a,d.l,({v:g,result:h})=>{b||(b=g.headers.get("Content-Type")||"");return h.split(/,/)[1]});var e=`data:${b};base64,${f}`}catch(f){e=d.o||""}return H[c]=e})};const J={R:"application/font-woff",S:"application/font-woff",O:"application/font-truetype",C:"application/vnd.ms-fontobject",J:"image/png",H:"image/jpeg",G:"image/jpeg",D:"image/gif",N:"image/tiff",M:"image/svg+xml",P:"image/webp"};function K(a){return(a=/\.([^./]*?)$/g.exec(a))?a[1]:""};function fa(a){return u(function*(){var b=a.toDataURL();return b==="data:,"?a.cloneNode(!1):C(b)})}function ha(a,b){return u(function*(){if(a.currentSrc){var d=document.createElement("canvas");let c=d.getContext("2d");d.width=a.clientWidth;d.height=a.clientHeight;c==null||c.drawImage(a,0,0,d.width,d.height);d=d.toDataURL();return C(d)}d=a.poster;d=yield I(d,J[K(d).toLowerCase()]||"",b);return C(d)})}
+function ia(a,b){return u(function*(){try{let d;if(a==null?0:(d=a.contentDocument)==null?0:d.body)return yield L(a.contentDocument.body,b,!0)}catch(d){}return a.cloneNode(!1)})}function ja(a,b){return u(function*(){return D(a,HTMLCanvasElement)?fa(a):D(a,HTMLVideoElement)?ha(a,b):D(a,HTMLIFrameElement)?ia(a,b):a.cloneNode(a.tagName!=null&&a.tagName.toUpperCase()==="SVG")})}
+function ka(a,b,d){return u(function*(){if(b.tagName!=null&&b.tagName.toUpperCase()==="SVG")return b;var c=[];if(a.tagName!=null&&a.tagName.toUpperCase()==="SLOT"&&a.assignedNodes)c=w(a.assignedNodes());else{let e;if(D(a,HTMLIFrameElement)&&((e=a.contentDocument)==null?0:e.body))c=w(a.contentDocument.body.childNodes);else{let f;c=w(((f=a.shadowRoot)!=null?f:a).childNodes)}}if(c.length===0||D(a,HTMLVideoElement))return b;yield c.reduce((e,f)=>e.then(()=>L(f,d)).then(g=>{g&&b.appendChild(g)}),Promise.resolve());
+return b})}function la(a,b,d){var c=b.style;if(c){var e=window.getComputedStyle(a);e.cssText?(c.cssText=e.cssText,c.transformOrigin=e.transformOrigin):z(d).forEach(f=>{var g=e.getPropertyValue(f);f==="font-size"&&g.endsWith("px")&&(g=`${Math.floor(parseFloat(g.substring(0,g.length-2)))-.1}px`);D(a,HTMLIFrameElement)&&f==="display"&&g==="inline"&&(g="block");f==="d"&&b.getAttribute("d")&&(g=`path(${b.getAttribute("d")})`);c.setProperty(f,g,e.getPropertyPriority(f))})}}
+function ma(a,b){D(a,HTMLSelectElement)&&(b=Array.from(b.children).find(d=>a.value===d.getAttribute("value")))&&b.setAttribute("selected","")}
+function na(a,b){return u(function*(){var d=a.querySelectorAll?a.querySelectorAll("use"):[];if(d.length===0)return a;var c={};for(var e=0;e<d.length;e++){var f=d[e].getAttribute("xlink:href");if(f){let g=document.querySelector(f);a.querySelector(f)||!g||c[f]||(c[f]=yield L(g,b,!0))}}d=Object.values(c);if(d.length){c=document.createElementNS("http://www.w3.org/1999/xhtml","svg");c.setAttribute("xmlns","http://www.w3.org/1999/xhtml");c.style.position="absolute";c.style.width="0";c.style.height="0";
+c.style.overflow="hidden";c.style.display="none";e=document.createElementNS("http://www.w3.org/1999/xhtml","defs");c.appendChild(e);for(f=0;f<d.length;f++)e.appendChild(d[f]);a.appendChild(c)}return a})}
+function L(a,b,d){return u(function*(){return d||!b.filter||b.filter(a)?Promise.resolve(a).then(c=>ja(c,b)).then(c=>ka(a,c,b)).then(c=>{D(c,Element)&&(la(a,c,b),E(a,c,":before",b),E(a,c,":after",b),D(a,HTMLTextAreaElement)&&(c.textContent=a.value),D(a,HTMLInputElement)&&c.setAttribute("value",a.value),ma(a,c));return c}).then(c=>na(c,b)):null})};const M=/url\((['"]?)([^'"]+?)\1\)/g,oa=/url\([^)]+\)\s*format\((["']?)([^"']+)\1\)/g,pa=/src:\s*(?:url\([^)]+\)\s*format\([^)]+\)[,;]\s*)+/g;function qa(a){var b=[];a.replace(M,(d,c,e)=>{b.push(e);return d});return b.filter(d=>!F(d))}
+function ra(a,b,d,c){return u(function*(){try{let e=d?(new URL(b,d||void 0)).toString():b,f;f=yield I(e,J[K(b).toLowerCase()]||"",c);return a.replace(new RegExp(`(url\\(['"]?)(${b.replace(/([.*+?^${}()|\[\]\/\\])/g,"\\$1")})(['"]?\\))`,"g"),`$1${f}$3`)}catch(e){}return a})}function sa(a,{K:b}){return b?a.replace(pa,d=>{for(;;){let [c,,e]=oa.exec(d)||[];if(!e)return"";if(e===b)return`src: ${c};`}}):a}
+function N(a,b,d){return u(function*(){if(a.search(M)===-1)return a;var c=sa(a,d);return qa(c).reduce((e,f)=>e.then(g=>ra(g,f,b,d)),Promise.resolve(c))})};function O(a,b,d){return u(function*(){var c,e=(c=b.style)==null?void 0:c.getPropertyValue(a);return e?(c=yield N(e,null,d),b.style.setProperty(a,c,b.style.getPropertyPriority(a)),!0):!1})}function ta(a,b){return u(function*(){(yield O("background",a,b))||(yield O("background-image",a,b));(yield O("mask",a,b))||(yield O("-webkit-mask",a,b))||(yield O("mask-image",a,b))||(yield O("-webkit-mask-image",a,b))})}
+function ua(a,b){return u(function*(){var d=D(a,HTMLImageElement);if(d&&!F(a.src)||D(a,SVGImageElement)&&!F(a.href.baseVal)){var c=d?a.src:a.href.baseVal,e=yield I(c,J[K(c).toLowerCase()]||"",b);yield new Promise((f,g)=>{a.onload=f;a.onerror=b.h?(...h)=>{try{f(b.h(...h))}catch(l){g(l)}}:g;a.decode&&(a.decode=f);a.loading==="lazy"&&(a.loading="eager");d?(a.srcset="",a.src=e):a.href.baseVal=e})}})}
+function va(a,b){return u(function*(){var d=w(a.childNodes).map(c=>P(c,b));yield Promise.all(d).then(()=>a)})}function P(a,b){return u(function*(){D(a,Element)&&(yield ta(a,b),yield ua(a,b),yield va(a,b))})};const Q={};function R(a){return u(function*(){var b=Q[a];if(b!=null)return b;b=yield(yield fetch(a)).text();b={url:a,cssText:b};return Q[a]=b})}function S(a,b){return u(function*(){var d=a.cssText,c=/url\(["']?([^"')]+)["']?\)/g,e=(d.match(/url\([^)]+\)/g)||[]).map(f=>u(function*(){var g=f.replace(c,"$1");g.startsWith("https://")||(g=(new URL(g,a.url)).href);return G(g,b.l,({result:h})=>{d=d.replace(f,`url(${h})`);return[f,h]})}));return Promise.all(e).then(()=>d)})}
+function T(a){if(a==null)return[];var b=[];a=a.replace(/(\/\*[\s\S]*?\*\/)/gi,"");for(var d=RegExp("((@.*?keyframes [\\s\\S]*?){([\\s\\S]*?}\\s*?)})","gi");;){var c=d.exec(a);if(c===null)break;b.push(c[0])}a=a.replace(d,"");d=/@import[\s\S]*?url\([^)]*\)[\s\S]*?;/gi;for(c=RegExp("((\\s*?(?:\\/\\*[\\s\\S]*?\\*\\/)?\\s*?@media[\\s\\S]*?){([\\s\\S]*?)}\\s*?})|(([\\s\\S]*?){([\\s\\S]*?)})","gi");;){let e=d.exec(a);if(e===null)if(e=c.exec(a),e===null)break;else d.lastIndex=c.lastIndex;else c.lastIndex=
+d.lastIndex;b.push(e[0])}return b}
+function wa(a,b){return u(function*(){var d=[],c=[];a.forEach(e=>{if("cssRules"in e)try{w(e.cssRules||[]).forEach((f,g)=>{if(f.type===CSSRule.IMPORT_RULE){let h=g+1;f=R(f.href).then(l=>S(l,b)).then(l=>T(l).forEach(p=>{try{e.insertRule(p,p.startsWith("@import")?h+=1:e.cssRules.length)}catch(x){}})).catch(()=>{});c.push(f)}})}catch(f){let g=a.find(h=>h.href==null)||document.styleSheets[0];e.href!=null&&c.push(R(e.href).then(h=>S(h,b)).then(h=>T(h).forEach(l=>{g.insertRule(l,g.cssRules.length)})).catch(()=>
+{}))}});return Promise.all(c).then(()=>{a.forEach(e=>{if("cssRules"in e)try{w(e.cssRules||[]).forEach(f=>{d.push(f)})}catch(f){}});return d})})}function xa(a){return a.filter(b=>b.type===CSSRule.FONT_FACE_RULE).filter(b=>b.style.getPropertyValue("src").search(M)!==-1)}function ya(a,b){return u(function*(){if(a.ownerDocument==null)throw Error("Provided element is not within a Document");var d=yield wa(w(a.ownerDocument.styleSheets),b);return xa(d)})}
+function za(a){function b(c){(c.style.fontFamily||getComputedStyle(c).fontFamily).split(",").forEach(e=>{d.add(e.trim().replace(/["']/g,""))});Array.from(c.children).forEach(e=>{e instanceof HTMLElement&&b(e)})}var d=new Set;b(a);return d}function Aa(a,b){return u(function*(){var d=yield ya(a,b),c=za(a);return(yield Promise.all(d.filter(e=>c.has(e.style.fontFamily.trim().replace(/["']/g,""))).map(e=>N(e.cssText,e.parentStyleSheet?e.parentStyleSheet.href:null,b)))).join("\n")})}
+function Ba(a,b){return u(function*(){var d=b.m!=null?b.m:b.A?null:yield Aa(a,b);if(d){let c=document.createElement("style");c.appendChild(document.createTextNode(d));a.firstChild?a.insertBefore(c,a.firstChild):a.appendChild(c)}})};function Ca(a,b={}){return u(function*(){var {width:d,height:c}=B(a,b),e=yield L(a,b,!0);yield Ba(e,b);yield P(e,b);v(e,b);return yield ca(e,d,c)})}
+function Da(a,b={}){return u(function*(){var {width:d,height:c}=B(a,b),e=yield Ca(a,b);e=yield C(e);var f=document.createElement("canvas"),g=f.getContext("2d"),h=b.I||window.devicePixelRatio||1,l=b.j||d,p=b.i||c;f.width=l*h;f.height=p*h;!b.L&&(f.width>16384||f.height>16384)&&(f.width>16384&&f.height>16384?f.width>f.height?(f.height*=16384/f.width,f.width=16384):(f.width*=16384/f.height,f.height=16384):f.width>16384?(f.height*=16384/f.width,f.width=16384):(f.width*=16384/f.height,f.height=16384));
+f.style.width=`${l}`;f.style.height=`${p}`;b.backgroundColor&&(g.fillStyle=b.backgroundColor,g.fillRect(0,0,f.width,f.height));g.drawImage(e,0,0,f.width,f.height);return f})}function Ea(a,b={}){return u(function*(){return(yield Da(a,b)).toDataURL()})};const Fa=["gemini.google.com","corp.google.com","proxy.googlers.com"];function V(a){a=Number(a.replace(/px$/,""));return Number.isFinite(a)?a:0}function W(){return document.body.querySelectorAll('[class*="animate"]').length>0}function X(a,b){var d=document.createElement("canvas");d.width=a;d.height=b;return d.toDataURL("image/png")}const Y=X(1,1);
+function Z(a,b){return u(function*(){var d=Math.max(b?b.width:a.offsetWidth,1),c=Math.max(b?b.height:a.offsetHeight,1),e=HTMLCanvasElement.prototype.toDataURL;b&&(HTMLCanvasElement.prototype.toDataURL=function(f,g){var h;if(h=this.isConnected&&a.contains(this)){{let n=this.getBoundingClientRect();if(n.width===0||n.height===0)h=!1;else if(window.getComputedStyle(this).position==="fixed")h=n.bottom>0&&n.top<b.height&&n.right>0&&n.left<b.width;else{h=a.getBoundingClientRect();var l=n.top-h.top,p=n.left-
+h.left,x=n.right-h.left;h=n.bottom-h.top>b.scrollTop&&l<b.scrollTop+b.height&&x>b.scrollLeft&&p<b.scrollLeft+b.width}}h=!h}return h?"data:,":e.call(this,f,g)});try{let f=window.getComputedStyle(a),g=b?`${V(f.marginTop)-b.scrollTop}px`:void 0,h=b?`${V(f.marginLeft)-b.scrollLeft}px`:void 0,l=`${Math.max(a.offsetWidth,d)}px`,p,x=`${Math.max(a.offsetHeight,c+((p=b==null?void 0:b.scrollTop)!=null?p:0))}px`;return yield Ea(a,Object.assign({},{width:d,height:c,j:d,i:c},b?{style:{width:l,height:x,marginTop:g,
+marginLeft:h,marginBlockStart:g,marginInlineStart:h}}:{},{A:!0,filter:n=>{if(n.tagName==="IMG"){let U=n.getAttribute("src");if(!U||U.trim()===""||n.style.display==="none")return!1}return!0},o:Y,h:()=>Y}))}catch(f){return X(d,c)}finally{HTMLCanvasElement.prototype.toDataURL=e}})}
+function Ga(){return u(function*(){var a=document.body.offsetWidth,b=document.body.offsetHeight,d=document.body.cloneNode(!0);d.querySelectorAll('[class*="animate"]').forEach(c=>{c.classList.remove(...Array.from(c.classList).filter(e=>e.startsWith("animate")))});d.style.width=`${a}px`;d.style.height=`${b}px`;return d})}
+function Ha(a){return u(function*(){var b={width:window.innerWidth||document.documentElement.clientWidth||document.body.offsetWidth,height:window.innerHeight||document.documentElement.clientHeight||document.body.offsetHeight,scrollTop:window.scrollY||document.documentElement.scrollTop||document.body.scrollTop||0,scrollLeft:window.scrollX||document.documentElement.scrollLeft||document.body.scrollLeft||0},d=document.body;if(W()){let c=yield Ga();d=c;document.body.appendChild(c)}b=yield Z(d,b);W()&&
+document.body.removeChild(d);window.parent.postMessage({type:"SEND_SCREENSHOT",image:b,topOffset:0},a.origin)})}function Ia(a){return u(function*(){var b={type:"SEND_SCREENSHOT_FOR_DATA_VISUALIZATION",image:yield Z(document.body),topOffset:0};window.parent.postMessage(b,a.origin)})}window.addEventListener("message",a=>u(function*(){if(Fa.some(d=>a.origin.includes(d))){var b=a.data;b&&(b.type==="MAKE_SCREENSHOT"&&(yield Ha(a)),b.type==="MAKE_SCREENSHOT_FOR_DATA_VISUALIZATION"&&(yield Ia(a)))}}));
+})();</script><script data-bard-client-injected="true">(function() {
+  // Ensure this script is executed only once
+  if (window.firebaseAuthBridgeScriptLoaded) {
+    return;
+  }
+  window.firebaseAuthBridgeScriptLoaded = true;
+
+  let nextTokenPromiseId = 0;
+
+  // Stores { resolve, reject } for ongoing token requests
+  const pendingTokenPromises = {};
+
+  // Listen for messages from the Host Application
+  window.addEventListener('message', function(event) {
+
+    const messageData = event.data;
+
+  if (messageData && messageData.type === 'RESOLVE_NEW_FIREBASE_TOKEN') {
+      const { success, token, error, promiseId } = messageData ?? {};
+      if (pendingTokenPromises[promiseId]) {
+        if (success) {
+          pendingTokenPromises[promiseId].resolve(token);
+        } else {
+          pendingTokenPromises[promiseId].reject(new Error(error || 'Token refresh failed from host.'));
+        }
+        delete pendingTokenPromises[promiseId];
+      }
+    }
+  });
+
+  // Expose a function for the Generated App to request a new Firebase token
+  window.requestNewFirebaseToken = function() {
+    const currentPromiseId = nextTokenPromiseId++;
+    const promise = new Promise((resolve, reject) => {
+      pendingTokenPromises[currentPromiseId] = { resolve, reject };
+    });
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({
+        type: 'REQUEST_NEW_FIREBASE_TOKEN',
+        promiseId: currentPromiseId
+      }, '*');
+    } else {
+      pendingTokenPromises[currentPromiseId].reject(new Error('No parent window to request token from.'));
+      delete pendingTokenPromises[currentPromiseId];
+    }
+    return promise;
+  };
+})();</script><script data-bard-client-injected="true">
+let realOriginalGetUserMedia = null;
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  realOriginalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+}
+
+(function() {
+  if (navigator.mediaDevices && navigator.mediaDevices.__proto__) {
+    try {
+      Object.defineProperty(navigator.mediaDevices.__proto__, 'getUserMedia', {
+        get: function() {
+          return undefined; // Or throw an error
+        },
+        configurable: false
+      });
+    } catch (error) {
+      console.error("Error defining prototype getter:", error);
+    }
+  }
+})();
+
+(function() {
+  const pendingMediaResolvers = {};
+  let nextMediaPromiseId = 0;
+
+  function requestMediaPermissions(constraints) {
+    const mediaPromiseId = nextMediaPromiseId++;
+    const promise = new Promise((resolve, reject) => {
+      pendingMediaResolvers[mediaPromiseId] = (granted) => {
+        delete pendingMediaResolvers[mediaPromiseId];
+        resolve(granted);
+      };
+    });
+
+    window.parent.postMessage({
+      type: 'requestMediaPermission',
+      constraints: constraints,
+      promiseId: mediaPromiseId,
+    }, '*');
+
+    return promise;
+  }
+
+  let originalGetUserMedia = realOriginalGetUserMedia;
+
+  function interceptGetUserMedia() {
+    if (navigator.mediaDevices) {
+      Object.defineProperty(navigator.mediaDevices, 'getUserMedia', {
+        value: function(constraints) {
+          return requestMediaPermissions(constraints).then((granted) => {
+            if (granted) {
+              if (originalGetUserMedia) {
+                return originalGetUserMedia(constraints);
+              } else {
+                throw new Error("Original getUserMedia not available.");
+              }
+            } else {
+              throw new DOMException('Permission denied', 'NotAllowedError');
+            }
+          });
+        },
+        writable: false,
+        configurable: false
+      });
+    }
+  }
+
+  interceptGetUserMedia();
+
+  const observer = new MutationObserver(function(mutationsList, observer) {
+    for (const mutation of mutationsList) {
+      if (mutation.type === 'reconfigured' && mutation.name === 'getUserMedia' && mutation.object === navigator.mediaDevices) {
+        interceptGetUserMedia();
+      } else if (mutation.type === 'attributes' && mutation.attributeName === 'getUserMedia' && mutation.target === navigator.mediaDevices) {
+        interceptGetUserMedia();
+      } else if (mutation.type === 'childList' && mutation.addedNodes) {
+        mutation.addedNodes.forEach(node => {
+          if (node === navigator.mediaDevices) {
+            interceptGetUserMedia();
+          }
+        });
+      }
+    }
+  });
+
+  function interceptSpeechRecognition() {
+    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
+      return;
+    }
+
+    const OriginalSpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    const SpeechRecognitionWrapper = function(...args) {
+      const recognizer = new OriginalSpeechRecognition(...args);
+      const originalStart = recognizer.start.bind(recognizer);
+
+      recognizer.start = function() {
+        requestMediaPermissions({ audio: true }).then(granted => {
+          if (granted) {
+            originalStart();
+          } else {
+            const errorEvent = new SpeechRecognitionErrorEvent('error');
+            errorEvent.error = 'not-allowed'; // This is the standard error for permission denial.
+            recognizer.dispatchEvent(errorEvent);
+          }
+        });
+      };
+
+      return recognizer;
+    };
+
+    SpeechRecognitionWrapper.prototype = OriginalSpeechRecognition.prototype;
+    SpeechRecognitionWrapper.prototype.constructor = SpeechRecognitionWrapper;
+
+    if (window.SpeechRecognition) {
+      window.SpeechRecognition = SpeechRecognitionWrapper;
+    }
+    if (window.webkitSpeechRecognition) {
+      window.webkitSpeechRecognition = SpeechRecognitionWrapper;
+    }
+  }
+
+  interceptSpeechRecognition();
+
+  window.addEventListener('message', function(event) {
+    if (event.data) {
+      if (event.data.type === 'resolveMediaPermission') {
+        const { promiseId, granted } = event.data;
+        if (pendingMediaResolvers[promiseId]) {
+          pendingMediaResolvers[promiseId](granted);
+        }
+      }
+    }
+  });
+
+})();</script><script ws-interception-config="{&quot;parentOrigin&quot;:&quot;https://gemini.google.com&quot;,&quot;proxiedDomains&quot;:[]}" data-bard-client-injected="true">(function(){'use strict';var u=typeof Object.defineProperties=="function"?Object.defineProperty:function(b,d,e){if(b==Array.prototype||b==Object.prototype)return b;b[d]=e.value;return b};function v(b){b=["object"==typeof globalThis&&globalThis,b,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var d=0;d<b.length;++d){var e=b[d];if(e&&e.Math==Math)return e}throw Error("Cannot find global object");}var w=v(this);
+function y(b,d){if(d)a:{var e=w;b=b.split(".");for(var h=0;h<b.length-1;h++){var k=b[h];if(!(k in e))break a;e=e[k]}b=b[b.length-1];h=e[b];d=d(h);d!=h&&d!=null&&u(e,b,{configurable:!0,writable:!0,value:d})}}function z(b){function d(h){return b.next(h)}function e(h){return b.throw(h)}return new Promise(function(h,k){function m(n){n.done?h(n.value):Promise.resolve(n.value).then(d,e).then(m,k)}m(b.next())})}y("globalThis",function(b){return b||w});/*
+
+ Copyright The Closure Library Authors.
+ SPDX-License-Identifier: Apache-2.0
+*/
+function A(b,d){function e(){}e.prototype=d.prototype;b.i=d.prototype;b.prototype=new e;b.prototype.constructor=b;b.h=function(h,k,m){for(var n=Array(arguments.length-2),p=2;p<arguments.length;p++)n[p-2]=arguments[p];return d.prototype[k].apply(h,n)}};function B(b,d,e="*"){function h(a){if(typeof a==="string")return F.encode(a).buffer;if(a instanceof ArrayBuffer)return a.slice(0);if(ArrayBuffer.isView(a))return a.buffer.slice(a.byteOffset,a.byteOffset+a.byteLength);throw Error("Invalid data type");}function k(a){a=h(a);var f={type:"send",data:new Uint8Array(a)},g;(g=r)==null||g.postMessage(f,[a])}function m(){if(!r)throw Error("Data port not captured yet.");r.onmessage=a=>{if(a.data.type==="message"){a=new MessageEvent("message",{data:G.decode(a.data.data)});
+let f;(f=c.onmessage)==null||f.call(c,a);c.dispatchEvent(a)}}}function n(){if(!t)throw Error("Control port not captured yet.");t.onmessage=a=>{switch(a.data.type){case "open":l=1;var f=new Event("open"),g;(g=c.onopen)==null||g.call(c,f);c.dispatchEvent(f);q.forEach(H=>{k(H)});q=[];break;case "close":g=a.data;l=3;g=new CloseEvent("close",{code:g.code,reason:g.reason,wasClean:g.wasClean});(f=c.onclose)==null||f.call(c,g);c.dispatchEvent(g);break;case "error":l=3;f=new Event("error");let x;(x=c.onerror)==
+null||x.call(c,f);c.dispatchEvent(f)}}}function p(a){return z(function*(){var f=new MessageChannel;t=f.port1;var g=new MessageChannel;r=g.port1;n();m();window.parent.postMessage({type:"websocket_open",portOrdering:["control","data"],url:b,protocols:a||[],connectionId:I},e,[f.port2,g.port2])}())}var c=Reflect.construct(EventTarget,[],new.target);c.CONNECTING=0;c.OPEN=1;c.CLOSING=2;c.CLOSED=3;c.url=b;c.binaryType="arraybuffer";c.protocol="";c.extensions="";var l=0,t=null,r=null,q=[],F=new TextEncoder,
+G=new TextDecoder;c.onopen=null;c.onmessage=null;c.onclose=null;c.onerror=null;Object.defineProperty(c,"readyState",{get:()=>l,enumerable:!0,configurable:!0});Object.defineProperty(c,"bufferedAmount",{get:()=>{var a=0;q.forEach(f=>{a+=typeof f==="string"?f.length:f.byteLength});return a},enumerable:!0,configurable:!0});var I=function(){var a;return((a=globalThis.crypto)==null?0:a.randomUUID)?globalThis.crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,f=>{var g=Math.random()*
+16|0;return(f==="x"?g:g&3|8).toString(16)})}();c.send=a=>{if(l===1)a instanceof Blob?a.arrayBuffer().then(f=>{k(f)}):k(a);else if(l===0)if(typeof a==="string")q.push(a);else if(a instanceof ArrayBuffer||ArrayBuffer.isView(a))q.push(h(a));else throw Error("Sending Blob is not supported before the connection is open.");else console.debug("WebSocket send called in CLOSING or CLOSED state; ignored.")};c.close=(a=1E3,f="")=>{if(l!==2&&l!==3){l=2;a={type:"close",code:a,reason:f,wasClean:a===1E3};var g;
+(g=t)==null||g.postMessage(a)}};Promise.resolve().then(()=>p(d));return c}A(B,EventTarget);var C=document.currentScript,D=C==null?void 0:C.getAttribute("ws-interception-config");if(!D)throw Error("WebSocket Interceptor: Missing ws-interception-config attribute in the script tag.");var E=JSON.parse(D);if(!E.parentOrigin||typeof E.parentOrigin!=="string")throw Error("WebSocket Interceptor: Invalid parentOrigin in ws-interception-config");
+(function(b){var d=Object.getOwnPropertyDescriptor(window,"WebSocket");if(!d||d.writable||d.configurable)d=Object.assign(function(e,h){try{let k=(new URL(e)).hostname;if(b.proxiedDomains.some(m=>k===m||k.endsWith(`.${m}`)))return new B(e,h,b.parentOrigin)}catch(k){throw window.parent.postMessage({type:"websocket_blocked",url:e,reason:"blocked_invalid_url"},b.parentOrigin),new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");}window.parent.postMessage({type:"websocket_blocked",
+url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");},{CONNECTING:0,OPEN:1,CLOSING:2,CLOSED:3}),Object.defineProperty(window,"WebSocket",{value:d,writable:!1,configurable:!1})})({proxiedDomains:E.proxiedDomains||[],parentOrigin:E.parentOrigin});}).call(this);
+</script><script data-bard-client-injected="true">((function(modelInformation) {
+  const originalFetch = window.fetch;
+  // TODO: b/421908508 - Move these out of the script and match all generative AI model calls.
+  let googleLlmBaseApiUrls = [
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':streamGenerateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predict',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predictLongRunning',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageEditModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageTransformModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predict',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predictLongRunning',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.ttsModelName + ':generateContent',
+  ];
+  modelInformation.deprecatedTextModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+    );
+  });
+  modelInformation.deprecatedImageModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predict',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predictLongRunning',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+  modelInformation.deprecatedGenerateImageModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+  modelInformation.deprecatedImageTransformModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+
+  const pendingFetchResolvers = {};
+  let nextPromiseId = 0;
+
+  function handleStringInput(input, optionsArgument) {
+    const actualUrl = input;
+    const fetchCallArgs = [actualUrl, optionsArgument];
+    const effectiveOptions = optionsArgument || {};
+    const bodyForApiKeyCheck = effectiveOptions.body;
+    const bodyForPostMessage = effectiveOptions.body;
+    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
+  }
+
+  function handleRequestInput(input, optionsArgument) {
+    const actualUrl = input.url;
+    const fetchCallArgs = [input, optionsArgument];
+    const effectiveOptions = { method: input.method, headers: new Headers(input.headers) };
+    let bodyForApiKeyCheck;
+    let bodyForPostMessage;
+
+    if (optionsArgument) {
+      if (optionsArgument.method) effectiveOptions.method = optionsArgument.method;
+      if (optionsArgument.headers) effectiveOptions.headers = new Headers(optionsArgument.headers);
+      if ('body' in optionsArgument) {
+        bodyForApiKeyCheck = optionsArgument.body;
+        bodyForPostMessage = optionsArgument.body;
+      } else {
+        bodyForApiKeyCheck = undefined;
+        bodyForPostMessage = input.body;
+      }
+    } else {
+      bodyForApiKeyCheck = undefined;
+      bodyForPostMessage = input.body;
+    }
+    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
+  }
+
+  window.fetch = function(input, optionsArgument) {
+    let actualUrl;
+    let fetchCallArgs;
+    let effectiveOptions = {};
+    let bodyForApiKeyCheck;
+    let bodyForPostMessage;
+
+    if (typeof input === 'string') {
+      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleStringInput(input, optionsArgument));
+    } else if (input instanceof Request) {
+      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleRequestInput(input, optionsArgument));
+    } else {
+      return originalFetch.apply(window, [input, optionsArgument]);
+    }
+
+    effectiveOptions.method = effectiveOptions.method || 'GET';
+    if (!effectiveOptions.headers) {
+      effectiveOptions.headers = new Headers();
+    }
+
+
+    if (typeof actualUrl === 'string' && googleLlmBaseApiUrls.some((url) => actualUrl.startsWith(url))) {
+      let apiKeyIsNull = true;
+
+      const regex = new RegExp("models/([^:]+)");
+      const modelNameMatch = actualUrl.match(regex);
+      const modelName = modelNameMatch ? modelNameMatch[1] : 'unspecified';
+
+
+      try {
+        const urlObject = new URL(actualUrl);  // Use URL object for robust parsing
+        const apiKeyParam = urlObject.searchParams.get('key');
+        if (apiKeyParam) {
+          apiKeyIsNull = false;
+        }
+      } catch (e) {
+        // Continue checks even if URL parsing fails
+      }
+
+      if (apiKeyIsNull && effectiveOptions.headers) {
+        const h = new Headers(effectiveOptions.headers);
+        const apiKeyHeaderValue = h.get('X-API-Key') || h.get('x-api-key');
+        if (apiKeyHeaderValue) {
+          apiKeyIsNull = false;
+          return originalFetch.apply(window, fetchCallArgs);
+        }
+      }
+
+      if (apiKeyIsNull && effectiveOptions.method && ['POST', 'PUT', 'PATCH'].includes(effectiveOptions.method.toUpperCase()) && typeof bodyForApiKeyCheck === 'string') {
+        try {
+          const bodyData = JSON.parse(bodyForApiKeyCheck);
+          if (bodyData && bodyData.apiKey) {
+            apiKeyIsNull = false;
+            return originalFetch.apply(window, fetchCallArgs);
+          }
+        } catch (e) {
+          // Ignore JSON parsing errors
+        }
+      }
+
+      if(apiKeyIsNull) {
+        const promiseId = nextPromiseId++;
+        const promise = new Promise((resolve) => {
+          pendingFetchResolvers[promiseId] = (resolvedResponse) => {
+            delete pendingFetchResolvers[promiseId];
+            resolve(resolvedResponse);
+          };
+        });
+
+        let serializedBodyForPostMessage;
+        if (typeof bodyForPostMessage === 'string' || bodyForPostMessage == null) {
+            serializedBodyForPostMessage = bodyForPostMessage;
+        } else if (bodyForPostMessage instanceof ReadableStream) {
+            serializedBodyForPostMessage = null;
+        } else {
+            try {
+                serializedBodyForPostMessage = JSON.stringify(bodyForPostMessage);
+            } catch (e) {
+                serializedBodyForPostMessage = null;
+            }
+        }
+
+        const messageOptions = {
+            method: effectiveOptions.method,
+            headers: Object.fromEntries(new Headers(effectiveOptions.headers).entries()),
+            body: serializedBodyForPostMessage
+        };
+
+        window.parent.postMessage({
+          type: 'requestFetch',
+          url: actualUrl,
+          modelName: modelName,
+          options: messageOptions,
+          promiseId: promiseId,
+        }, '*');
+
+        return promise;
+      }
+      return originalFetch.apply(window, fetchCallArgs);
+    }
+    return originalFetch.apply(window, fetchCallArgs);
+  };
+
+  window.addEventListener('message', function(event) {
+    if (event.data && event.data.type === 'resolveFetch') {
+      const { promiseId, response } = event.data;
+      if (pendingFetchResolvers[promiseId]) {
+        try {
+          const reconstructedResponse = new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: new Headers(response.headers),
+          });
+          pendingFetchResolvers[promiseId](reconstructedResponse);
+        } catch (error) {
+          pendingFetchResolvers[promiseId](new Response(null, { status: 500, statusText: "Interceptor Response Reconstruction Error" }));
+        }
+      }
+    }
+  });
+
+}))({"textModelName":"gemini-3-flash-preview","imageModelName":"imagen-4.0-generate-001","imageEditModelName":"gemini-3.1-flash-image","imageTransformModelName":"gemini-3-pro-image","videoModelName":"veo-2.0-generate-001","ttsModelName":"gemini-2.5-flash-preview-tts","deprecatedTextModelNames":["gemini-2.0-flash","gemini-2.5-flash","gemini-2.5-flash-preview-04-17","gemini-2.5-flash-preview-05-20","gemini-2.5-flash-preview-09-2025"],"deprecatedImageModelNames":["imagen-3.0-generate-001","imagen-3.0-generate-002"],"deprecatedGenerateImageModelNames":["gemini-2.5-flash-image-preview","gemini-2.5-flash-image","gemini-3.1-flash-image-preview"],"deprecatedImageTransformModelNames":["gemini-3-pro-image-preview-11-2025"]})</script><script data-bard-client-injected="true">(function() {
+  const OVERLAY_SELECTOR =
+    'dialog[open], [role="dialog"], [role="alertdialog"], [role="menu"], [role="listbox"], [role="combobox"]';
+
+  function isVisibleOverlay(element) {
+    if (element.closest('[hidden], [aria-hidden="true"], [inert]')) {
+      return false;
+    }
+    if (window.getComputedStyle(element).visibility === 'hidden') {
+      return false;
+    }
+    for (let cur = element; cur; cur = cur.parentElement) {
+      if (window.getComputedStyle(cur).display === 'none') {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function hasOpenOverlay() {
+    const candidates = document.querySelectorAll(OVERLAY_SELECTOR);
+    for (let i = 0; i < candidates.length; i++) {
+      if (isVisibleOverlay(candidates[i])) {
+        return true;
+      }
+    }
+    try {
+      if (document.querySelector('[popover]:popover-open')) {
+        return true;
+      }
+    } catch (e) {
+      // Ignore engines that do not support :popover-open.
+    }
+    return false;
+  }
+
+  function isNonEmptySearchInput(target) {
+    return (
+      Boolean(target) &&
+      target.tagName === 'INPUT' &&
+      typeof target.type === 'string' &&
+      target.type.toLowerCase() === 'search' &&
+      typeof target.value === 'string' &&
+      target.value.length > 0
+    );
+  }
+
+  function shouldIgnoreEscape(event) {
+    return (
+      event.key !== 'Escape' ||
+      event.altKey ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.shiftKey ||
+      event.isComposing ||
+      event.repeat ||
+      event.keyCode === 229 ||
+      isNonEmptySearchInput(event.target)
+    );
+  }
+
+  let shouldIgnoreCaptureState = false;
+
+  window.addEventListener(
+    'keydown',
+    function(event) {
+      if (event.key === 'Escape') {
+        shouldIgnoreCaptureState =
+          hasOpenOverlay() || isNonEmptySearchInput(event.target);
+      }
+    },
+    {capture: true},
+  );
+
+  window.addEventListener('keydown', function(event) {
+    if (
+      shouldIgnoreEscape(event) ||
+      event.defaultPrevented ||
+      shouldIgnoreCaptureState
+    ) {
+      return;
+    }
+    const wasBlockedOnCapture = shouldIgnoreCaptureState;
+    queueMicrotask(function() {
+      if (event.defaultPrevented || wasBlockedOnCapture) {
+        return;
+      }
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({'type': 'escapeKey'}, '*');
+      }
+    });
+  });
+})();</script><script data-bard-client-injected="true">(function() {
+  function normalizeSlug(str) {
+    try {
+      return str
+        .trim()
+        .toLowerCase()
+        .replace(/[^p{L}p{N}s_-]/gu, '')
+        .replace(/s+/g, '-');
+    } catch (e) {
+      return str
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9s_-]/g, '')
+        .replace(/s+/g, '-');
+    }
+  }
+
+  function findTargetElement(hash) {
+    if (!hash || hash === '#') {
+      return null;
+    }
+    const rawId = hash.startsWith('#') ? hash.slice(1) : hash;
+    let decodedId = rawId;
+    try {
+      decodedId = decodeURIComponent(rawId);
+    } catch (e) {
+      // Ignore URI malformed errors.
+    }
+
+    // 1. Direct ID match (raw and decoded).
+    let target = document.getElementById(rawId) || document.getElementById(decodedId);
+    if (target) {
+      return target;
+    }
+
+    // 2. Name attribute match (<a name="...">).
+    try {
+      if (typeof CSS !== 'undefined' && CSS.escape) {
+        target =
+          document.querySelector('[name="' + CSS.escape(rawId) + '"]') ||
+          document.querySelector('[name="' + CSS.escape(decodedId) + '"]');
+      } else {
+        const namedElements = document.getElementsByName(rawId);
+        if (namedElements && namedElements.length > 0) {
+          return namedElements[0];
+        }
+      }
+    } catch (e) {
+      // Ignore querySelector syntax errors.
+    }
+    if (target) {
+      return target;
+    }
+
+    // 3. Match heading text by slug (for Markdown TOCs where headings lack explicit IDs).
+    const targetSlug = normalizeSlug(decodedId);
+    if (targetSlug) {
+      for (const heading of document.querySelectorAll('h1, h2, h3, h4, h5, h6')) {
+        if (normalizeSlug(heading.textContent || '') === targetSlug) {
+          return heading;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  document.addEventListener('click', function(event) {
+    const target = event.target;
+    const anchor = target && typeof target.closest === 'function' ? target.closest('a') : null;
+    if (!anchor) {
+      return;
+    }
+
+    const href = anchor.getAttribute('href');
+    if (
+      !href ||
+      href.trim().toLowerCase().startsWith('javascript:') ||
+      anchor.hasAttribute('download')
+    ) {
+      return;
+    }
+
+    // Check if the link is an in-page hash / anchor link.
+    if (href.startsWith('#')) {
+      event.preventDefault();
+      const targetElement = findTargetElement(href);
+      if (targetElement) {
+        targetElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+      }
+      return;
+    }
+
+    // Check if the URL has the same origin/pathname but with a hash.
+    try {
+      const url = new URL(anchor.href, window.location.href);
+      if (
+        url.hash &&
+        url.origin === window.location.origin &&
+        url.pathname === window.location.pathname
+      ) {
+        event.preventDefault();
+        const targetElement = findTargetElement(url.hash);
+        if (targetElement) {
+          targetElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }
+        return;
+      }
+    } catch (e) {
+      // Fall through if URL parsing fails.
+    }
+
+    // For all external or full navigation links, prevent iframe-level navigation
+    // (which breaks in AGSA WebView or sandboxed iframes) and ensure they open
+    // safely in a new tab/window.
+    if (anchor.target !== '_blank') {
+      event.preventDefault();
+      window.open(anchor.href, '_blank', 'noopener,noreferrer');
+    }
+  }, {capture: true});
+})();</script><script data-bard-client-injected="true">(function(){'use strict';function a(){window.parent.postMessage({type:"interaction"},"*")}window.addEventListener("click",a,{capture:!0,passive:!0});window.addEventListener("touchstart",a,{capture:!0,passive:!0});window.addEventListener("keydown",a,{capture:!0,passive:!0});}).call(this);
+</script><script data-bard-client-injected="true">(function() {
+  const originalConsoleLog = console.log;
+  const originalConsoleError = console.error;
+
+    /**
+   * Normalizes an error event or a promise rejection reason into a structured error object.
+   * @param {*} errorEventOrReason The error object or reason.
+   * @return {object} Structured error data { message, name, stack }.
+   */
+  function getErrorObject(errorEventOrReason) {
+    if (errorEventOrReason instanceof Error) {
+      return {
+        message: errorEventOrReason.message,
+        name: errorEventOrReason.name,
+        stack: errorEventOrReason.stack,
+      };
+    }
+    // Fallback for non-Error objects.
+    try {
+      return {
+        message: JSON.stringify(errorEventOrReason),
+        name: 'UnknownErrorType',
+        stack: null,
+      };
+    } catch (e) {
+      return {
+        message: String(errorEventOrReason),
+        name: 'UnknownErrorTypeNonStringifiable',
+        stack: null,
+      };
+    }
+  }
+
+  /**
+   * Converts an array of arguments (from log/error) into a single string.
+   * Handles Error objects specially to include their message and stack.
+   * @param {Array<*>} args - Arguments passed to console methods.
+   * @return {string} A string representation of the arguments.
+   */
+  function stringifyArgs(args) {
+    return args
+      .map((arg) => {
+        if (arg instanceof Error) {
+          const {message, stack} = arg;
+          return `Error: ${message}${stack ? ('\nStack: ' + stack) : ''}`;
+        }
+        if (typeof arg === 'object' && arg !== null) {
+          try {
+            return JSON.stringify(arg);
+          } catch (error) {
+            return '[Circular Object]';
+          }
+        } else {
+          return String(arg);
+        }
+      })
+      .join(' ');
+  }
+
+  console.log = function(...args) {
+    const logString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'log', message: logString }, '*');
+    originalConsoleLog.apply(console, args);
+  };
+
+  console.error = function(...args) {
+    let errorData;
+    if (args.length > 0 && args[0] instanceof Error) {
+      const err = args[0];
+      // If the first arg is an Error, capture its details.
+      errorData = {
+        type: 'error',
+        source: 'CONSOLE_ERROR',
+        ...getErrorObject(err),
+        rawArgsString: stringifyArgs(args.slice(1)),
+        timestamp: new Date().toISOString(),
+      };
+    } else {
+      // If not an Error object, treat all args as a general error message.
+      errorData = {
+        type: 'error',
+        source: 'CONSOLE_ERROR',
+        message: stringifyArgs(args),
+        name: 'ConsoleLoggedError',
+        stack: null,
+        timestamp: new Date().toISOString(),
+      };
+    }
+    window.parent.postMessage(errorData, '*');
+    originalConsoleError.apply(console, args);
+  };
+
+  // Listen for global unhandled synchronous errors.
+  window.addEventListener('error', function(event) {
+    const errorDetails = event.error ? getErrorObject(event.error) : {
+      message: event.message,
+      name: 'GlobalError',
+      stack: null,
+      filename: event.filename,
+      lineno: event.lineno,
+      colno: event.colno,
+    };
+
+    window.parent.postMessage({
+      type: 'error',
+      source: 'global',
+      ...errorDetails,
+      message: errorDetails.message || event.message,
+      timestamp: new Date().toISOString(),
+    }, '*');
+  });
+
+  // Listen for unhandled promise rejections (asynchronous errors).
+  window.addEventListener('unhandledrejection', function(event) {
+    const errorDetails = getErrorObject(event.reason);
+
+    window.parent.postMessage({
+      type: 'error',
+      source: 'unhandledrejection',
+      ...errorDetails,
+      message: errorDetails.message || 'Unhandled Promise Rejection',
+      timestamp: new Date().toISOString(),
+    }, '*');
+  });
+
+})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elena Harbuzariu | Responsible AI &amp; Financial Crime Compliance Portfolio</title>
+  <meta name="author" content="Elena Harbuzariu">
+  <meta name="description" content="Elena Harbuzariu — Responsible AI &amp; Financial Crime Compliance (FCC) Practitioner in London, United Kingdom. Capstone case study covering AI governance, human-in-the-loop operational controls, AML/TBML compliance, QA lookback auditing, and model risk validation.">
+
+  <!-- OpenGraph & Social Preview Metadata -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Elena Harbuzariu — Responsible AI &amp; Financial Crime Compliance Practitioner | AI Governance &amp; FCC Risk Case Study">
+  <meta property="og:description" content="Capstone case study demonstrating practical AI governance, human-in-the-loop operational controls, AML/TBML compliance, retroactive QA lookback auditing, and PRA SS1/23 model risk validation.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Elena Harbuzariu — Responsible AI &amp; Financial Crime Compliance Practitioner | AI Governance &amp; FCC Risk Case Study">
+  <meta name="twitter:description" content="AI Governance &amp; FCC Analyst portfolio showcasing human-in-the-loop controls, acceptable use policies, QA audit methodologies, and validation governance.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono (Zero External JS/CSS Frameworks) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================================
+       DESIGN TOKENS: DARK-SLATE & WARM-ALABASTER EDITORIAL COMPLIANCE PALETTE
+       ========================================================================= */
+    :root {
+      /* Dark-Slate Desk & Console Surfaces */
+      --slate-950: #080D18;
+      --slate-900: #0E1525;
+      --slate-850: #131C31;
+      --slate-800: #19243C;
+      --slate-700: #263554;
+      --slate-600: #3B4E73;
+
+      /* Warm-Alabaster Editorial Paper Surfaces */
+      --alabaster-50: #FAF8F5;
+      --alabaster-100: #F3EFE8;
+      --alabaster-200: #E6DFD3;
+      --alabaster-300: #D4CBB9;
+      --ink-900: #111827;
+      --ink-700: #2E3748;
+      --ink-500: #556074;
+
+      /* Typography Colors on Dark Slate */
+      --text-primary: #F7F4ED;
+      --text-secondary: #C8C2B6;
+      --text-muted: #938E84;
+
+      /* Regulatory & Semantic Accents */
+      --accent-sky: #38BDF8;
+      --accent-sky-soft: rgba(56, 189, 248, 0.14);
+      --accent-emerald: #10B981;
+      --accent-emerald-soft: rgba(16, 185, 129, 0.14);
+      --accent-amber: #D97706;
+      --accent-amber-bright: #F59E0B;
+      --accent-amber-soft: rgba(245, 158, 11, 0.14);
+      --accent-crimson: #F43F5E;
+      --accent-crimson-soft: rgba(244, 63, 94, 0.14);
+
+      /* Layout & Typography */
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --shadow-card: 0 12px 32px -8px rgba(3, 7, 18, 0.55);
+      --shadow-paper: 0 18px 40px -12px rgba(3, 7, 18, 0.65);
+    }
+
+    /* =========================================================================
+       RESET & BASE TYPOGRAPHY
+       ========================================================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      background-color: var(--slate-950);
+      color: var(--text-primary);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--slate-950);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input {
+      font-family: inherit;
+    }
+
+    /* Architectural Blueprint Grid Background */
+    .editorial-grid-bg {
+      background-image:
+        linear-gradient(to right, rgba(247, 244, 237, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(247, 244, 237, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--slate-950);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--slate-700);
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-sky);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 2rem;
+      }
+    }
+
+    /* =========================================================================
+       STICKY NAVIGATION HEADER & EXPORT POPOVER
+       ========================================================================= */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(8, 13, 24, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--slate-700);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 68px;
+      gap: 0.75rem;
+    }
+
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .brand-monogram {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--alabaster-50);
+      color: var(--ink-900);
+      border: 1px solid var(--alabaster-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: -0.03em;
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      min-width: 0;
+    }
+
+    .brand-name-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .brand-name {
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-loc-pill {
+      display: none;
+      padding: 0.12rem 0.45rem;
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      background: var(--accent-emerald-soft);
+      color: #6EE7B7;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    @media (min-width: 1180px) {
+      .brand-loc-pill {
+        display: inline-flex;
+      }
+    }
+
+    .brand-sub {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .desktop-nav {
+      display: none;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    @media (min-width: 1024px) {
+      .desktop-nav {
+        display: flex;
+      }
+    }
+
+    .desktop-nav a {
+      padding: 0.45rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .desktop-nav a:hover {
+      background: var(--slate-800);
+      color: var(--text-primary);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.8rem;
+      border-radius: 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      min-height: 36px;
+    }
+
+    .btn-ghost-slate {
+      background: var(--slate-850);
+      color: var(--text-primary);
+      border-color: var(--slate-700);
+    }
+
+    .btn-ghost-slate:hover {
+      background: var(--slate-800);
+      border-color: var(--accent-sky);
+    }
+
+    .btn-export-pill {
+      background: var(--accent-emerald-soft);
+      color: #6EE7B7;
+      border-color: rgba(16, 185, 129, 0.35);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+    }
+
+    .btn-export-pill:hover {
+      background: rgba(16, 185, 129, 0.24);
+    }
+
+    .btn-primary-alabaster {
+      background: var(--alabaster-50);
+      color: var(--ink-900);
+      border-color: var(--alabaster-300);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    }
+
+    .btn-primary-alabaster:hover {
+      background: #FFFFFF;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary-sky {
+      background: var(--accent-sky);
+      color: #06101F;
+      font-weight: 700;
+    }
+
+    .btn-primary-sky:hover {
+      background: #7DD3FC;
+    }
+
+    .btn-emerald {
+      background: var(--accent-emerald);
+      color: #04130D;
+      font-weight: 700;
+    }
+
+    .btn-emerald:hover {
+      background: #34D399;
+    }
+
+    .hide-mobile {
+      display: none;
+    }
+
+    @media (min-width: 640px) {
+      .hide-mobile {
+        display: inline;
+      }
+    }
+
+    /* Export Utility Popover */
+    .export-popover {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 8px);
+      width: 295px;
+      background: var(--slate-900);
+      border: 1px solid var(--slate-600);
+      border-radius: var(--radius-md);
+      padding: 0.9rem;
+      box-shadow: var(--shadow-card);
+      z-index: 60;
+    }
+
+    .export-popover.hidden {
+      display: none;
+    }
+
+    .export-popover-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
+      border-bottom: 1px solid var(--slate-700);
+    }
+
+    .export-popover-title {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #6EE7B7;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .export-popover p {
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+      line-height: 1.45;
+    }
+
+    .export-popover-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .export-popover-stack .btn {
+      width: 100%;
+    }
+
+    /* Mobile Sub-Nav */
+    .mobile-subnav {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0 0.65rem;
+      overflow-x: auto;
+      border-top: 1px solid rgba(38, 53, 84, 0.5);
+    }
+
+    @media (min-width: 1024px) {
+      .mobile-subnav {
+        display: none;
+      }
+    }
+
+    .mobile-subnav a {
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      background: var(--slate-850);
+      border: 1px solid var(--slate-700);
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    /* =========================================================================
+       HERO SECTION & WARM-ALABASTER EXECUTIVE AUTHOR DOSSIER CARD
+       ========================================================================= */
+    .hero-section {
+      padding: 2.25rem 0 4rem;
+      border-bottom: 1px solid var(--slate-700);
+    }
+
+    @media (min-width: 768px) {
+      .hero-section {
+        padding: 3rem 0 4.75rem;
+      }
+    }
+
+    /* Warm-Alabaster Editorial Author Banner */
+    .author-dossier-card {
+      background: var(--alabaster-50);
+      color: var(--ink-900);
+      border: 1px solid var(--alabaster-300);
+      border-radius: var(--radius-xl);
+      padding: 1.4rem;
+      margin-bottom: 2.25rem;
+      box-shadow: var(--shadow-paper);
+    }
+
+    @media (min-width: 768px) {
+      .author-dossier-card {
+        padding: 1.85rem 2rem;
+      }
+    }
+
+    .author-dossier-top {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding-bottom: 1.15rem;
+      margin-bottom: 1.15rem;
+      border-bottom: 1px solid var(--alabaster-200);
+    }
+
+    @media (min-width: 960px) {
+      .author-dossier-top {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .author-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: var(--slate-900);
+      color: var(--alabaster-50);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.55rem;
+    }
+
+    .author-eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+    }
+
+    .author-name {
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--ink-900);
+      line-height: 1.2;
+    }
+
+    @media (min-width: 640px) {
+      .author-name {
+        font-size: 1.95rem;
+      }
+    }
+
+    .author-secondary-role {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.35rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #0F4C81;
+    }
+
+    .author-location-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      background: var(--alabaster-100);
+      border: 1px solid var(--alabaster-300);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--ink-700);
+    }
+
+    .author-contact-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .author-pill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.42rem 0.75rem;
+      border-radius: 9px;
+      background: var(--alabaster-100);
+      border: 1px solid var(--alabaster-300);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--ink-900);
+      transition: all 0.15s ease;
+    }
+
+    .author-pill-link:hover {
+      background: var(--slate-900);
+      color: var(--alabaster-50);
+      border-color: var(--slate-900);
+    }
+
+    .author-bio {
+      font-size: 0.95rem;
+      line-height: 1.68;
+      color: var(--ink-700);
+      max-width: 980px;
+    }
+
+    .author-bio strong {
+      color: var(--ink-900);
+      font-weight: 700;
+    }
+
+    /* Regulatory Badges Row */
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .reg-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.28rem 0.7rem;
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: var(--slate-850);
+      color: var(--text-secondary);
+      border: 1px solid var(--slate-700);
+    }
+
+    .reg-badge-highlight {
+      background: var(--accent-sky-soft);
+      color: #7DD3FC;
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+
+    /* Case Study Headline Grid */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 7fr 5fr;
+        gap: 2.5rem;
+      }
+    }
+
+    .hero-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      margin-bottom: 1.15rem;
+    }
+
+    @media (min-width: 640px) {
+      .hero-title {
+        font-size: 2.35rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-title {
+        font-size: 2.6rem;
+      }
+    }
+
+    .hero-title-accent {
+      display: block;
+      margin-top: 0.35rem;
+      color: #7DD3FC;
+    }
+
+    .hero-lead {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .hero-lead strong {
+      color: var(--text-primary);
+    }
+
+    .mono-stat-red {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: #FDA4AF;
+    }
+
+    .mono-stat-amber {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: #FCD34D;
+    }
+
+    .hero-sublead {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.68;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-sublead strong {
+      color: var(--text-secondary);
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    /* Case Study Summary Panel */
+    .case-profile-card {
+      background: var(--slate-900);
+      border: 1px solid var(--slate-700);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem;
+      box-shadow: var(--shadow-card);
+    }
+
+    .case-profile-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 0.85rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--slate-700);
+    }
+
+    .case-profile-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    .status-pill-remediated {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      background: var(--accent-emerald-soft);
+      color: #6EE7B7;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .profile-dl {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .profile-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .profile-row dt {
+      color: var(--text-muted);
+    }
+
+    .profile-row dd {
+      font-weight: 600;
+      color: var(--text-primary);
+      text-align: right;
+    }
+
+    .profile-index-box {
+      margin-top: 0.5rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--slate-700);
+    }
+
+    .profile-index-title {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .quick-doc-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .quick-chip {
+      padding: 0.3rem 0.55rem;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.69rem;
+      font-weight: 600;
+      background: var(--slate-850);
+      color: #7DD3FC;
+      border: 1px solid var(--slate-700);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .quick-chip:hover {
+      background: var(--alabaster-50);
+      color: var(--ink-900);
+      border-color: var(--alabaster-300);
+    }
+
+    /* =========================================================================
+       BEFORE VS. AFTER IMPACT METRICS GRID
+       ========================================================================= */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.15rem;
+      margin-top: 2.75rem;
+    }
+
+    @media (min-width: 640px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1120px) {
+      .metrics-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .metric-card {
+      background: var(--slate-900);
+      border: 1px solid var(--slate-700);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-card);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .metric-card:hover {
+      border-color: var(--accent-sky);
+      transform: translateY(-2px);
+    }
+
+    .metric-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .metric-card-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .metric-gate-tag {
+      padding: 0.15rem 0.45rem;
+      border-radius: 5px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      background: var(--accent-sky-soft);
+      color: #7DD3FC;
+      border: 1px solid rgba(56, 189, 248, 0.28);
+    }
+
+    .state-box-before {
+      background: rgba(136, 19, 55, 0.24);
+      border: 1px solid rgba(244, 63, 94, 0.32);
+      border-radius: 10px;
+      padding: 0.7rem 0.8rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .state-label-before {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #FDA4AF;
+      margin-bottom: 0.2rem;
+    }
+
+    .state-val-before {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #FFE4E6;
+      line-height: 1.4;
+    }
+
+    .state-box-after {
+      background: rgba(6, 78, 59, 0.28);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 10px;
+      padding: 0.7rem 0.8rem;
+    }
+
+    .state-label-after {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #6EE7B7;
+      margin-bottom: 0.2rem;
+    }
+
+    .state-val-after {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #ECFDF5;
+      line-height: 1.4;
+    }
+
+    .metric-card-foot {
+      margin-top: 0.9rem;
+      padding-top: 0.7rem;
+      border-top: 1px solid rgba(38, 53, 84, 0.8);
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .metric-card-foot span:last-child {
+      color: #7DD3FC;
+      font-weight: 600;
+    }
+
+    /* =========================================================================
+       GENERIC SECTION HEADERS
+       ========================================================================= */
+    .section-block {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--slate-700);
+    }
+
+    @media (min-width: 768px) {
+      .section-block {
+        padding: 4.75rem 0;
+      }
+    }
+
+    .section-header-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2.25rem;
+    }
+
+    @media (min-width: 768px) {
+      .section-header-row {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #7DD3FC;
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      line-height: 1.25;
+    }
+
+    @media (min-width: 768px) {
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+
+    .section-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      max-width: 760px;
+      margin-top: 0.5rem;
+      line-height: 1.65;
+    }
+
+    /* =========================================================================
+       THREE-PILLAR ARCHITECTURE & 3LoD GOVERNANCE MATRIX
+       ========================================================================= */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.35rem;
+      margin-bottom: 2.25rem;
+    }
+
+    @media (min-width: 1024px) {
+      .pillars-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .pillar-card {
+      background: var(--slate-900);
+      border: 2px solid var(--slate-700);
+      border-radius: var(--radius-lg);
+      padding: 1.45rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-card);
+    }
+
+    .pillar-card:hover {
+      background: var(--slate-850);
+      border-color: var(--accent-sky);
+      transform: translateY(-2px);
+    }
+
+    .pillar-card.active-pillar {
+      border-color: var(--alabaster-50);
+      box-shadow: 0 0 0 3px rgba(250, 248, 245, 0.2);
+    }
+
+    .pillar-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.9rem;
+    }
+
+    .pillar-badge {
+      padding: 0.28rem 0.65rem;
+      border-radius: 7px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .pillar-badge-sky {
+      background: var(--accent-sky-soft);
+      color: #7DD3FC;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .pillar-badge-emerald {
+      background: var(--accent-emerald-soft);
+      color: #6EE7B7;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .pillar-badge-amber {
+      background: var(--accent-amber-soft);
+      color: #FCD34D;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    .pillar-filter-hint {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .pillar-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.45rem;
+    }
+
+    .pillar-card p {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin-bottom: 1.1rem;
+    }
+
+    .pillar-doc-list {
+      border-top: 1px solid var(--slate-700);
+      padding-top: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .pillar-doc-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      background: var(--slate-950);
+      border: 1px solid var(--slate-700);
+      border-radius: 9px;
+      padding: 0.6rem 0.75rem;
+      font-size: 0.76rem;
+    }
+
+    .pillar-doc-num {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: #7DD3FC;
+      flex-shrink: 0;
+    }
+
+    .pillar-doc-title {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .pillar-doc-sub {
+      color: var(--text-muted);
+      font-size: 0.71rem;
+      margin-top: 0.15rem;
+    }
+
+    /* 3LoD Interactive Matrix Panel */
+    .lod-panel {
+      background: var(--slate-900);
+      border: 1px solid var(--slate-700);
+      border-radius: var(--radius-lg);
+      padding: 1.45rem;
+      box-shadow: var(--shadow-card);
+    }
+
+    .lod-panel-head {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--slate-700);
+    }
+
+    @media (min-width: 768px) {
+      .lod-panel-head {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .lod-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .lod-btn {
+      padding: 0.38rem 0.7rem;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: var(--slate-850);
+      color: var(--text-secondary);
+      border: 1px solid var(--slate-700);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .lod-btn:hover {
+      background: var(--slate-800);
+      color: var(--text-primary);
+    }
+
+    .lod-btn.active {
+      background: var(--alabaster-50);
+      color: var(--ink-900);
+      border-color: var(--alabaster-300);
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid var(--slate-700);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.82rem;
+    }
+
+    .data-table th {
+      background: var(--slate-950);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--slate-700);
+    }
+
+    .data-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid rgba(38, 53, 84, 0.8);
+      color: var(--text-secondary);
+      vertical-align: top;
+      transition: opacity 0.2s ease, background-color 0.2s ease;
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .data-table td.row-heading {
+      font-weight: 700;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    .col-highlight {
+      background: rgba(56, 189, 248, 0.1);
+    }
+
+    .col-dimmed {
+      opacity: 0.38;
+    }
+
+    /* =========================================================================
+       FILTERABLE & SEARCHABLE 6-DOCUMENT SUITE
+       ========================================================================= */
+    .filter-toolbar {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background: var(--slate-900);
+      border: 1px solid var(--slate-700);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.15rem;
+      margin-bottom: 1.75rem;
+    }
+
+    @media (min-width: 1024px) {
+      .filter-toolbar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .doc-filter-btn {
+      padding: 0.48rem 0.85rem;
+      border-radius: 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: var(--slate-850);
+      color: var(--text-secondary);
+      border: 1px solid var(--slate-700);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .doc-filter-btn:hover {
+      background: var(--slate-800);
+      color: var(--text-primary);
+    }
+
+    .doc-filter-btn.active {
+      background: var(--alabaster-50);
+      color: var(--ink-900);
+      border-color: var(--alabaster-300);
+    }
+
+    .search-box {
+      position: relative;
+      width: 100%;
+    }
+
+    @media (min-width: 1024px) {
+      .search-box {
+        width: 330px;
+      }
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.55rem 2.25rem 0.55rem 2.35rem;
+      border-radius: 10px;
+      background: var(--slate-950);
+      border: 1px solid var(--slate-700);
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-sky);
+    }
+
+    .search-clear-btn {
+      position: absolute;
+      right: 0.55rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.25rem;
+      font-size: 0.85rem;
+    }
+
+    .search-clear-btn.hidden {
+      display: none;
+    }
+
+    .docs-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.35rem;
+    }
+
+    @media (min-width: 768px) {
+      .docs-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1120px) {
+      .docs-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .doc-card {
+      background: var(--slate-900);
+      border: 1px solid var(--slate-700);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-card);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .doc-card:hover {
+      border-color: var(--alabaster-300);
+      transform: translateY(-2px);
+    }
+
+    .doc-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .doc-card-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.38;
+      margin-bottom: 0.6rem;
+    }
+
+    .doc-card-summary {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.58;
+      margin-bottom: 1rem;
+    }
+
+    .doc-tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .doc-tag {
+      padding: 0.18rem 0.5rem;
+      border-radius: 5px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      background: var(--slate-950);
+      color: var(--text-secondary);
+      border: 1px solid var(--slate-700);
+    }
+
+    .doc-card-foot {
+      padding-top: 0.9rem;
+      border-top: 1px solid var(--slate-700);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .doc-metric-note {
+      font-family: var(--font-mono);
+      font-size: 0.69rem;
+      color: var(--text-muted);
+    }
+
+    .empty-state-box {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: var(--slate-900);
+      border: 1px solid var(--slate-700);
+      border-radius: var(--radius-lg);
+    }
+
+    .empty-state-box.hidden {
+      display: none;
+    }
+
+    /* =========================================================================
+       TWO INTERACTIVE CONTROL SANDBOXES
+       ========================================================================= */
+    .sandboxes-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    @media (min-width: 1120px) {
+      .sandboxes-grid {
+        grid-template-columns: 7fr 5fr;
+      }
+    }
+
+    .sandbox-panel {
+      background: var(--slate-900);
+      border: 1px solid var(--slate-700);
+      border-radius: var(--radius-lg);
+      padding: 1.45rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-card);
+    }
+
+    .sandbox-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.6rem;
+      padding-bottom: 1rem;
+      margin-bottom: 1.15rem;
+      border-bottom: 1px solid var(--slate-700);
+    }
+
+    .sandbox-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.69rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #6EE7B7;
+      display: block;
+    }
+
+    .sandbox-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-top: 0.2rem;
+    }
+
+    .preset-label {
+      font-family: var(--font-mono);
+      font-size: 0.69rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 0.45rem;
+    }
+
+    .preset-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .preset-btn {
+      padding: 0.38rem 0.7rem;
+      border-radius: 8px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      background: var(--slate-850);
+      color: var(--text-primary);
+      border: 1px solid var(--slate-700);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .preset-btn:hover {
+      border-color: var(--accent-sky);
+      background: var(--slate-800);
+    }
+
+    .preset-btn-amber {
+      background: var(--accent-amber-soft);
+      color: #FCD34D;
+      border-color: rgba(245, 158, 11, 0.35);
+    }
+
+    .preset-btn-crimson {
+      background: var(--accent-crimson-soft);
+      color: #FDA4AF;
+      border-color: rgba(244, 63, 94, 0.35);
+    }
+
+    .preset-btn-emerald {
+      background: var(--accent-emerald-soft);
+      color: #6EE7B7;
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+
+    /* Red Flag Toggle Grid */
+    .flags-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.55rem;
+      margin-bottom: 1.25rem;
+    }
+
+    @media (min-width: 640px) {
+      .flags-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .flag-toggle-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: 10px;
+      background: var(--slate-950);
+      border: 1px solid var(--slate-700);
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.15s ease;
+    }
+
+    .flag-toggle-card:hover {
+      border-color: var(--accent-sky);
+    }
+
+    .flag-toggle-card.span-full {
+      grid-column: 1 / -1;
+    }
+
+    .flag-toggle-card input[type="checkbox"] {
+      margin-top: 0.2rem;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent-sky);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .flag-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .flag-meta {
+      font-family: var(--font-mono);
+      font-size: 0.67rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    /* Master Case & XAI Output Box */
+    .xai-output-box {
+      background: var(--slate-950);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .xai-output-box.clean-state {
+      border-color: rgba(16, 185, 129, 0.45);
+    }
+
+    .xai-top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .xai-id-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .master-case-tag {
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      background: var(--accent-sky-soft);
+      color: #7DD3FC;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .wire-bundle-note {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: #6EE7B7;
+      font-weight: 600;
+    }
+
+    .override-pill {
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 0.67rem;
+      font-weight: 700;
+      background: var(--accent-crimson-soft);
+      color: #FDA4AF;
+      border: 1px solid rgba(244, 63, 94, 0.4);
+    }
+
+    .override-pill.clean {
+      background: var(--accent-emerald-soft);
+      color: #6EE7B7;
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+
+    .triggered-rules-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .rule-pill {
+      padding: 0.24rem 0.55rem;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: var(--accent-crimson-soft);
+      color: #FFE4E6;
+      border: 1px solid rgba(244, 63, 94, 0.35);
+    }
+
+    .rule-pill.clean {
+      background: var(--accent-emerald-soft);
+      color: #A7F3D0;
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+
+    /* Warm Alabaster XAI Banner Inside Console */
+    .xai-alabaster-banner {
+      background: var(--alabaster-50);
+      color: var(--ink-900);
+      border-left: 4px solid var(--accent-amber);
+      border-radius: 0 8px 8px 0;
+      padding: 0.75rem 0.9rem;
+    }
+
+    .xai-alabaster-label {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #92400E;
+      margin-bottom: 0.25rem;
+    }
+
+    .xai-alabaster-text {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--ink-900);
+      font-weight: 500;
+    }
+
+    .xai-sla-footer {
+      margin-top: 0.75rem;
+      padding-top: 0.65rem;
+      border-top: 1px solid var(--slate-700);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.71rem;
+      color: var(--text-muted);
+    }
+
+    /* 11-Item SOP Verification Checklist Box */
+    .sop-checklist-box {
+      background: var(--slate-950);
+      border: 1px solid var(--slate-700);
+      border-radius: 12px;
+      padding: 0.95rem;
+    }
+
+    .checklist-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .checklist-heading {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .checklist-sub {
+      font-family: var(--font-mono);
+      font-size: 0.67rem;
+      color: var(--text-muted);
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 7px;
+      background: var(--slate-800);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 0.7rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-sky), var(--accent-emerald));
+      transition: width 0.25s ease;
+    }
+
+    .checklist-scroll {
+      max-height: 185px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding-right: 0.25rem;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.45rem 0.6rem;
+      border-radius: 8px;
+      background: var(--slate-900);
+      border: 1px solid var(--slate-800);
+      font-size: 0.75rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .checklist-item:hover {
+      border-color: var(--slate-600);
+    }
+
+    .checklist-item-left {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 0;
+    }
+
+    .checklist-item-left input {
+      accent-color: var(--accent-emerald);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .checklist-item-text {
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .checklist-item-text.done {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .checklist-cat-pill {
+      padding: 0.12rem 0.42rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.63rem;
+      background: var(--slate-850);
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .disposition-bar {
+      margin-top: 0.7rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid var(--slate-800);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.71rem;
+    }
+
+    /* Sandbox B Sliders */
+    .sliders-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .slider-card {
+      background: var(--slate-950);
+      border: 1px solid var(--slate-700);
+      border-radius: 10px;
+      padding: 0.8rem 0.95rem;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .slider-header label {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .slider-val {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: #7DD3FC;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--slate-800);
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--alabaster-50);
+      border: 2px solid var(--slate-950);
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.55);
+      cursor: pointer;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--alabaster-50);
+      border: 2px solid var(--slate-950);
+      cursor: pointer;
+    }
+
+    .slider-scale {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
+    /* Capacity Telemetry & Gates */
+    .capacity-telemetry {
+      background: var(--slate-950);
+      border: 1px solid var(--slate-700);
+      border-radius: 12px;
+      padding: 0.95rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .util-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.45rem;
+    }
+
+    .util-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .util-number {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #6EE7B7;
+    }
+
+    .gates-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-top: 0.7rem;
+    }
+
+    .gate-status-card {
+      padding: 0.6rem 0.7rem;
+      border-radius: 8px;
+      background: rgba(6, 78, 59, 0.28);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .gate-status-card.warn {
+      background: rgba(120, 53, 15, 0.28);
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    .gate-status-card.fail {
+      background: rgba(136, 19, 55, 0.3);
+      border-color: rgba(244, 63, 94, 0.45);
+    }
+
+    .gate-status-title {
+      font-family: var(--font-mono);
+      font-size: 0.63rem;
+      color: var(--text-muted);
+    }
+
+    .gate-status-val {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #6EE7B7;
+      margin-top: 0.15rem;
+    }
+
+    .circuit-breaker-card {
+      border-radius: 12px;
+      padding: 0.95rem;
+      background: rgba(6, 78, 59, 0.28);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .circuit-breaker-card.warn {
+      background: rgba(120, 53, 15, 0.3);
+      border-color: rgba(245, 158, 11, 0.45);
+    }
+
+    .circuit-breaker-card.breach {
+      background: rgba(136, 19, 55, 0.38);
+      border-color: rgba(244, 63, 94, 0.65);
+      animation: breachPulse 2s infinite;
+    }
+
+    @keyframes breachPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4); }
+      50% { box-shadow: 0 0 0 7px rgba(244, 63, 94, 0); }
+    }
+
+    .cb-head {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .cb-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      flex-shrink: 0;
+    }
+
+    .cb-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #6EE7B7;
+    }
+
+    .cb-body {
+      font-size: 0.77rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* =========================================================================
+       CORE COMPETENCIES GRID
+       ========================================================================= */
+    .competencies-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 640px) {
+      .competencies-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1120px) {
+      .competencies-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .comp-card {
+      background: var(--slate-900);
+      border: 1px solid var(--slate-700);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem;
+      box-shadow: var(--shadow-card);
+      transition: border-color 0.2s ease;
+    }
+
+    .comp-card:hover {
+      border-color: var(--alabaster-300);
+    }
+
+    .comp-icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--alabaster-50);
+      color: var(--ink-900);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .comp-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.45rem;
+    }
+
+    .comp-card p {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.58;
+      margin-bottom: 1rem;
+    }
+
+    .comp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    /* =========================================================================
+       FOOTER & SANITIZED GITHUB EXPORT UTILITY BAR
+       ========================================================================= */
+    .site-footer {
+      background: #050911;
+      padding: 2.5rem 0 3rem;
+    }
+
+    .export-bar {
+      background: var(--slate-900);
+      border: 1px solid var(--slate-700);
+      border-radius: var(--radius-lg);
+      padding: 1.15rem 1.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    @media (min-width: 960px) {
+      .export-bar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .export-bar-title {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #6EE7B7;
+    }
+
+    .export-bar-desc {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    .export-bar-desc code {
+      font-family: var(--font-mono);
+      color: var(--text-primary);
+    }
+
+    .export-bar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .copied-badge {
+      display: none;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 9px;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      background: var(--accent-emerald-soft);
+      color: #6EE7B7;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .copied-badge.visible {
+      display: inline-flex;
+    }
+
+    .footer-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    @media (min-width: 860px) {
+      .footer-bottom {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      font-family: var(--font-mono);
+    }
+
+    .footer-links a:hover {
+      color: var(--text-primary);
+    }
+
+    /* =========================================================================
+       FULL-SPECIFICATION DOCUMENT READER MODAL (WARM ALABASTER PAPER SHEET)
+       ========================================================================= */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 70;
+      background: rgba(4, 7, 15, 0.86);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem;
+    }
+
+    @media (min-width: 640px) {
+      .modal-backdrop {
+        padding: 1.5rem;
+      }
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-shell {
+      width: 100%;
+      max-width: 1020px;
+      max-height: 92vh;
+      background: var(--slate-900);
+      border: 1px solid var(--slate-600);
+      border-radius: var(--radius-xl);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.75);
+      animation: modalEnter 0.2s ease-out forwards;
+    }
+
+    @keyframes modalEnter {
+      from { opacity: 0; transform: translateY(10px) scale(0.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-switcher-bar {
+      background: var(--slate-950);
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid var(--slate-700);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      overflow-x: auto;
+    }
+
+    .modal-tabs-list {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+
+    .modal-tab-btn {
+      padding: 0.32rem 0.65rem;
+      border-radius: 7px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: var(--slate-850);
+      color: var(--text-secondary);
+      border: 1px solid var(--slate-700);
+      cursor: pointer;
+    }
+
+    .modal-tab-btn.active {
+      background: var(--alabaster-50);
+      color: var(--ink-900);
+      border-color: var(--alabaster-300);
+    }
+
+    .modal-header {
+      padding: 1rem 1.4rem;
+      background: var(--slate-900);
+      border-bottom: 1px solid var(--slate-700);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 768px) {
+      .modal-header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .modal-title {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-top: 0.3rem;
+      line-height: 1.35;
+    }
+
+    .modal-header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    /* Warm Alabaster Editorial Paper Surface inside Modal */
+    .modal-paper-body {
+      padding: 1.4rem;
+      overflow-y: auto;
+      background: var(--alabaster-50);
+      color: var(--ink-900);
+      font-size: 0.9rem;
+      line-height: 1.65;
+      display: flex;
+      flex-direction: column;
+      gap: 1.35rem;
+    }
+
+    @media (min-width: 768px) {
+      .modal-paper-body {
+        padding: 2rem 2.25rem;
+      }
+    }
+
+    /* Editorial Spec Styling Inside Warm Alabaster Sheet */
+    .spec-meta-table-wrap {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid var(--alabaster-300);
+      background: #FFFFFF;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.8rem;
+    }
+
+    .spec-table th {
+      background: var(--slate-900);
+      color: var(--alabaster-50);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      padding: 0.65rem 0.85rem;
+    }
+
+    .spec-table td {
+      padding: 0.65rem 0.85rem;
+      border-bottom: 1px solid var(--alabaster-200);
+      color: var(--ink-700);
+      vertical-align: top;
+    }
+
+    .spec-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .spec-table td.spec-key {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--ink-900);
+      background: var(--alabaster-100);
+      width: 32%;
+    }
+
+    .spec-h4 {
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: var(--ink-900);
+      margin-bottom: 0.45rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid var(--alabaster-200);
+    }
+
+    .spec-callout {
+      background: var(--alabaster-100);
+      border: 1px solid var(--alabaster-300);
+      border-left: 4px solid #0F4C81;
+      border-radius: 0 10px 10px 0;
+      padding: 0.9rem 1rem;
+      font-size: 0.86rem;
+      color: var(--ink-900);
+    }
+
+    .spec-callout.breach {
+      border-left-color: #BE123C;
+      background: #FFF1F2;
+      border-color: #FECDD3;
+    }
+
+    .spec-callout.attest {
+      border-left-color: #047857;
+      background: #ECFDF5;
+      border-color: #A7F3D0;
+    }
+
+    .spec-cards-2col {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 640px) {
+      .spec-cards-2col {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .spec-cards-3col {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 640px) {
+      .spec-cards-3col {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .spec-subcard {
+      background: #FFFFFF;
+      border: 1px solid var(--alabaster-300);
+      border-radius: 10px;
+      padding: 0.85rem;
+      font-size: 0.81rem;
+    }
+
+    .spec-subcard-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #0F4C81;
+      margin-bottom: 0.3rem;
+    }
+
+    .spec-code-block {
+      background: var(--slate-900);
+      color: #E2E8F0;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      line-height: 1.55;
+      padding: 0.75rem 0.9rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 0.45rem 0;
+    }
+
+    .spec-list {
+      padding-left: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: var(--ink-700);
+    }
+
+    .spec-list strong {
+      color: var(--ink-900);
+    }
+
+    .modal-footer {
+      padding: 0.8rem 1.4rem;
+      background: var(--slate-950);
+      border-top: 1px solid var(--slate-700);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    /* Toast Container */
+    .toast-stack {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-width: 360px;
+      pointer-events: none;
+    }
+
+    .toast-item {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      background: var(--alabaster-50);
+      color: var(--ink-900);
+      border: 1px solid var(--alabaster-300);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Toast Notification Container (Never uses browser alert() or confirm()) -->
+  <div id="toast-container" class="toast-stack" aria-live="polite"></div>
+
+  <!-- ===================================================================== -->
+  <!-- STICKY TOP NAVIGATION HEADER                                          -->
+  <!-- ===================================================================== -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <!-- Brand / Author Link -->
+        <a href="#overview" class="brand-link">
+          <div class="brand-monogram">EH</div>
+          <div class="brand-text">
+            <div class="brand-name-row">
+              <span class="brand-name">Elena Harbuzariu</span>
+              <span class="brand-loc-pill">LONDON, UK</span>
+            </div>
+            <div class="brand-sub">Responsible AI &amp; Financial Crime Compliance</div>
+          </div>
+        </a>
+
+        <!-- Desktop Section Links -->
+        <nav class="desktop-nav" aria-label="Primary sections">
+          <a href="#overview">Overview</a>
+          <a href="#architecture">Governance Architecture</a>
+          <a href="#documents">6-Document Suite</a>
+          <a href="#simulators">Control Sandboxes</a>
+          <a href="#competencies">Competencies</a>
+        </nav>
+
+        <!-- Top-Right Sanitized Export Utility + LinkedIn, GitHub & Contact Actions -->
+        <div class="header-actions">
+          <button type="button" id="header-export-btn" onclick="toggleHeaderExportPopover()" class="btn btn-export-pill" title="Download or copy secret-free HTML for GitHub Pages">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+            <span class="hide-mobile">Clean Export</span>
+          </button>
+
+          <!-- Clean Export Popover -->
+          <div id="header-export-popover" class="export-popover hidden" role="region" aria-label="Sanitized HTML export options">
+            <div class="export-popover-header">
+              <span class="export-popover-title">Secret-Free GitHub Export</span>
+              <button type="button" onclick="closeHeaderExportPopover()" style="background:none;border:none;color:#938E84;cursor:pointer;font-size:0.85rem;" aria-label="Close menu">✕</button>
+            </div>
+            <p>
+              Sanitizes the DOM via <code style="font-family:var(--font-mono);color:#F7F4ED;">getCleanExportHTML()</code>, stripping preview wrapper scripts so GitHub Secret Scanning stays completely clean.
+            </p>
+            <div class="export-popover-stack">
+              <button type="button" onclick="downloadCleanIndexHTML(); closeHeaderExportPopover();" class="btn btn-emerald">
+                Download Clean index.html
+              </button>
+              <button type="button" onclick="copyCleanHTMLToClipboard(); closeHeaderExportPopover();" class="btn btn-ghost-slate">
+                Copy Clean HTML (For GitHub Editor)
+              </button>
+            </div>
+          </div>
+
+          <a href="https://www.linkedin.com/in/elenaharbuzariu" target="_blank" rel="noopener noreferrer" class="btn btn-ghost-slate" title="Elena Harbuzariu on LinkedIn">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"></path>
+            </svg>
+            <span class="hide-mobile">LinkedIn</span>
+          </a>
+
+          <a href="https://github.com/elenaharbuzariu" target="_blank" rel="noopener noreferrer" class="btn btn-ghost-slate" title="Elena Harbuzariu on GitHub">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="hide-mobile">GitHub</span>
+          </a>
+
+          <a href="mailto:elenaharbuzariu300@gmail.com?subject=Responsible%20AI%20%26%20FCC%20Portfolio%20Inquiry" class="btn btn-primary-alabaster" target="_blank" rel="noopener noreferrer">
+            <span>Contact Me</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile Quick Anchor Strip -->
+      <nav class="mobile-subnav" aria-label="Mobile section navigation">
+        <a href="#overview">Overview</a>
+        <a href="#architecture">3LoD Architecture</a>
+        <a href="#documents">6-Document Suite</a>
+        <a href="#simulators">Interactive Sandboxes</a>
+        <a href="#competencies">Competencies</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- MAIN CONTENT                                                          -->
+  <!-- ===================================================================== -->
+  <main>
+    <!-- 1. HERO SECTION & WARM-ALABASTER EXECUTIVE AUTHOR DOSSIER -->
+    <section id="overview" class="hero-section editorial-grid-bg">
+      <div class="container">
+
+        <!-- Warm-Alabaster Author Positioning Card -->
+        <div class="author-dossier-card">
+          <div class="author-dossier-top">
+            <div>
+              <div class="author-eyebrow">
+                <span class="author-eyebrow-dot"></span>
+                <span>Responsible AI &amp; Financial Crime Compliance (FCC) Practitioner</span>
+              </div>
+              <h2 class="author-name">Elena Harbuzariu</h2>
+              <div class="author-secondary-role">
+                <span>AI Governance &amp; FCC Analyst</span>
+                <span class="author-location-tag">📍 London, United Kingdom</span>
+              </div>
+            </div>
+
+            <div class="author-contact-pills">
+              <a href="mailto:elenaharbuzariu300@gmail.com?subject=Responsible%20AI%20%26%20FCC%20Portfolio%20Inquiry" class="author-pill-link" target="_blank" rel="noopener noreferrer">
+                <span>✉</span>
+                <span>elenaharbuzariu300@gmail.com</span>
+              </a>
+              <a href="https://www.linkedin.com/in/elenaharbuzariu" target="_blank" rel="noopener noreferrer" class="author-pill-link">
+                <span>in</span>
+                <span>linkedin.com/in/elenaharbuzariu</span>
+              </a>
+              <a href="https://github.com/elenaharbuzariu" target="_blank" rel="noopener noreferrer" class="author-pill-link">
+                <span>gh</span>
+                <span>/elenaharbuzariu</span>
+              </a>
+            </div>
+          </div>
+
+          <p class="author-bio">
+            As an <strong>AI Governance &amp; FCC Analyst</strong>, I focus on translating regulatory expectations—including <strong>PRA SS1/23</strong>, <strong>FCA SYSC 6.1</strong>, and UK AML obligations—into practical human-in-the-loop operational controls, clear acceptable use policies, quality assurance audit methodologies, and pre-deployment validation governance. Presented below as a <strong>comprehensive capstone case study</strong>, this portfolio demonstrates how structured governance artifacts bridge compliance oversight and operational AML teams to keep automated transaction monitoring accountable, explainable, and human-adjudicated.
+          </p>
+        </div>
+
+        <!-- Regulatory Framework Badges -->
+        <div class="badge-row">
+          <span class="reg-badge reg-badge-highlight">Comprehensive Capstone Case Study</span>
+          <span class="reg-badge">PRA SS1/23 Model Risk</span>
+          <span class="reg-badge">FCA SYSC 6.1 &amp; Principle 11</span>
+          <span class="reg-badge">UK MLRs · POCA 2002</span>
+          <span class="reg-badge">FATF / JMLSG TBML Controls</span>
+        </div>
+
+        <!-- Main Case Study Headline & Incident Context -->
+        <div class="hero-grid">
+          <div>
+            <h1 class="hero-title">
+              AI Governance &amp; Financial Crime Compliance Risk Case Study:
+              <span class="hero-title-accent">
+                Remediating an Algorithmic AML Failure (£4.2m TBML Case Study)
+              </span>
+            </h1>
+
+            <p class="hero-lead">
+              Deploying machine learning into financial crime operations without capacity guardrails, explainability, or deterministic overrides can actively weaken compliance defenses. In this capstone scenario at <strong>ApexGlobal Bank</strong>, the uncalibrated rollout of <strong>OmniShield AI</strong> generated <span class="mono-stat-red">14,200 alerts within 90 days</span>—overwhelming first-line analysts, compressing average review times from <strong>45 minutes</strong> down to a dangerous <span class="mono-stat-red">8 minutes</span>, and allowing a complex <span class="mono-stat-amber">£4.2m Trade-Based Money Laundering (TBML)</span> scheme to move unreviewed.
+            </p>
+
+            <p class="hero-sublead">
+              To remediate the control breakdown and establish defensible oversight across the <strong>Three Lines of Defence</strong>, I developed an integrated <strong>six-document governance and operational control suite</strong> covering an AI Acceptable Use Policy, Three Lines of Defence remediation governance, deterministic TBML rule specifications, a 45-minute Tier-1 investigation playbook, a retroactive QA lookback audit methodology, and a 60-day shadow-mode validation protocol.
+            </p>
+
+            <div class="hero-cta-row">
+              <a href="#documents" class="btn btn-primary-alabaster" style="padding: 0.72rem 1.15rem; font-size: 0.85rem;">
+                <span>Explore 6-Document Suite</span>
+                <span>↓</span>
+              </a>
+              <a href="#simulators" class="btn btn-ghost-slate" style="padding: 0.72rem 1.15rem; font-size: 0.85rem;">
+                <span>Launch Control Sandboxes</span>
+                <span>→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Case Study Summary Card -->
+          <aside class="case-profile-card" aria-label="Capstone Case Study Profile">
+            <div class="case-profile-header">
+              <span class="case-profile-label">Capstone Case Study Profile</span>
+              <span class="status-pill-remediated">
+                <span style="width:6px;height:6px;border-radius:50%;background:#10B981;"></span>
+                REMEDIATED
+              </span>
+            </div>
+
+            <dl class="profile-dl">
+              <div class="profile-row">
+                <dt>Case Institution</dt>
+                <dd>ApexGlobal Bank (UK Fictional)</dd>
+              </div>
+              <div class="profile-row">
+                <dt>Monitored System</dt>
+                <dd style="font-family:var(--font-mono);color:#7DD3FC;">OmniShield AI (AML/TM)</dd>
+              </div>
+              <div class="profile-row">
+                <dt>Incident Window</dt>
+                <dd style="font-family:var(--font-mono);">90 Days Post-Deployment</dd>
+              </div>
+              <div class="profile-row">
+                <dt>Root-Cause Triad</dt>
+                <dd>No Shadow Gate · FIFO · Speed KPIs</dd>
+              </div>
+              <div class="profile-row">
+                <dt>Typology Exposed</dt>
+                <dd style="font-family:var(--font-mono);color:#FCD34D;">£4.2m Shell-Company TBML</dd>
+              </div>
+            </dl>
+
+            <div class="profile-index-box">
+              <div class="profile-index-title">Quick-Open Specification Index</div>
+              <div class="quick-doc-chips">
+                <button type="button" onclick="openDocModal('doc1')" class="quick-chip">POL-FCC-AI-004</button>
+                <button type="button" onclick="openDocModal('doc2')" class="quick-chip">Governance &amp; 3LoD</button>
+                <button type="button" onclick="openDocModal('doc3')" class="quick-chip">TBML-01 to TBML-07</button>
+                <button type="button" onclick="openDocModal('doc4')" class="quick-chip">SOP-FCC-TBML-01</button>
+                <button type="button" onclick="openDocModal('doc5')" class="quick-chip">AUD-FCC-QA-009</button>
+                <button type="button" onclick="openDocModal('doc6')" class="quick-chip">MRM-VAL-OMNI-006</button>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <!-- 4 Before vs. After Impact Cards -->
+        <div class="metrics-grid">
+          <!-- Card 1 -->
+          <div class="metric-card">
+            <div>
+              <div class="metric-card-head">
+                <span class="metric-card-title">Alert Volume &amp; Capacity</span>
+                <span class="metric-gate-tag">GATE 1 &amp; 2</span>
+              </div>
+              <div class="state-box-before">
+                <div class="state-label-before">Before (Uncalibrated)</div>
+                <div class="state-val-before">14,200 fragmented alerts in 90 days</div>
+              </div>
+              <div class="state-box-after">
+                <div class="state-label-after">After (Capacity-Locked)</div>
+                <div class="state-val-after">85%–100% capacity-locked volume (≤15% deterministic TBML cap)</div>
+              </div>
+            </div>
+            <div class="metric-card-foot">
+              <span>Circuit-Breaker</span>
+              <span>&gt;115% or &gt;7d Queue</span>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="metric-card">
+            <div>
+              <div class="metric-card-head">
+                <span class="metric-card-title">Investigation Rigor</span>
+                <span class="metric-gate-tag">POL-FCC-AI-004</span>
+              </div>
+              <div class="state-box-before">
+                <div class="state-label-before">Before (Rapid Closures)</div>
+                <div class="state-val-before">8-minute average alert review time</div>
+              </div>
+              <div class="state-box-after">
+                <div class="state-label-after">After (Enforced Standard)</div>
+                <div class="state-val-after">45-minute Master Case benchmark (&lt;15-min QA hard lock)</div>
+              </div>
+            </div>
+            <div class="metric-card-foot">
+              <span>Analyst Scorecard</span>
+              <span>50 / 30 / 20 KPIs</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="metric-card">
+            <div>
+              <div class="metric-card-head">
+                <span class="metric-card-title">TBML Scheme Detection</span>
+                <span class="metric-gate-tag">GATE 3 &amp; 4</span>
+              </div>
+              <div class="state-box-before">
+                <div class="state-label-before">Before (Control Blind Spot)</div>
+                <div class="state-val-before">Undetected £4.2m TBML scheme</div>
+              </div>
+              <div class="state-box-after">
+                <div class="state-label-after">After (Hybrid Override)</div>
+                <div class="state-val-after">100% recall on TBML-01..07 rules (≥25% SAR/EDD yield)</div>
+              </div>
+            </div>
+            <div class="metric-card-foot">
+              <span>Case Bundling</span>
+              <span>30-Day Entity Graph</span>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="metric-card">
+            <div>
+              <div class="metric-card-head">
+                <span class="metric-card-title">Retroactive Assurance</span>
+                <span class="metric-gate-tag">AUD-FCC-QA-009</span>
+              </div>
+              <div class="state-box-before">
+                <div class="state-label-before">Before (Unreviewed Backlog)</div>
+                <div class="state-val-before">Speed-only KPIs &amp; FIFO queue</div>
+              </div>
+              <div class="state-box-after">
+                <div class="state-label-after">After (Forensic Audit)</div>
+                <div class="state-val-after">100% Tier-1 census + 5.0% Trigger-to-100% expansion rule</div>
+              </div>
+            </div>
+            <div class="metric-card-foot">
+              <span>Regulatory Alignment</span>
+              <span>FCA P11 &amp; NCA SAR</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. THREE-PILLAR GOVERNANCE ARCHITECTURE & 3LoD MATRIX -->
+    <section id="architecture" class="section-block">
+      <div class="container">
+        <div class="section-header-row">
+          <div>
+            <span class="section-eyebrow">Closed-Loop Control Framework</span>
+            <h2 class="section-title">Three-Pillar Governance Architecture &amp; 3LoD Matrix</h2>
+            <p class="section-desc">
+              Each document reinforces the next across policy guardrails, pre-deployment model validation, and second-line assurance. <strong style="color:var(--text-primary);">Click any pillar card below to filter the 6-Document Suite.</strong>
+            </p>
+          </div>
+          <button type="button" onclick="filterDocuments('all', false)" class="btn btn-ghost-slate">
+            Reset Pillar Filter (All 6)
+          </button>
+        </div>
+
+        <!-- 3 Pillar Cards -->
+        <div class="pillars-grid">
+          <!-- Pillar I -->
+          <div id="pillar-card-pillar1" onclick="filterDocuments('pillar1', true)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')filterDocuments('pillar1', true)" class="pillar-card">
+            <div class="pillar-top">
+              <span class="pillar-badge pillar-badge-sky">Pillar I · Governance &amp; AUP</span>
+              <span class="pillar-filter-hint">Filter Docs →</span>
+            </div>
+            <h3>Strategic Governance &amp; Acceptable Use</h3>
+            <p>
+              Defines executive accountability across the Three Lines of Defence, replaces throughput speed quotas with 50/30/20 quality-weighted KPIs, and enforces automated capacity circuit-breakers.
+            </p>
+            <div class="pillar-doc-list">
+              <div class="pillar-doc-item">
+                <span class="pillar-doc-num">01</span>
+                <div>
+                  <div class="pillar-doc-title">Acceptable Use Policy (POL-FCC-AI-004)</div>
+                  <div class="pillar-doc-sub">&lt;15m Rapid Closure QA lock · TBML no-suppression · 115% / 7d Circuit-Breaker</div>
+                </div>
+              </div>
+              <div class="pillar-doc-item">
+                <span class="pillar-doc-num">02</span>
+                <div>
+                  <div class="pillar-doc-title">Governance &amp; Remediation Recommendations</div>
+                  <div class="pillar-doc-sub">3LoD Matrix · Abandon FIFO · SHAP XAI Header · 50/30/20 Analyst Scorecard</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pillar II -->
+          <div id="pillar-card-pillar2" onclick="filterDocuments('pillar2', true)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')filterDocuments('pillar2', true)" class="pillar-card">
+            <div class="pillar-top">
+              <span class="pillar-badge pillar-badge-emerald">Pillar II · Rules &amp; Validation</span>
+              <span class="pillar-filter-hint">Filter Docs →</span>
+            </div>
+            <h3>Deterministic Rules &amp; 60-Day Shadow Validation</h3>
+            <p>
+              Specifies seven non-suppressible TBML business-logic rules across payment, trade, registry, and AIS feeds, gated behind a 60-day PRA SS1/23 shadow validation protocol.
+            </p>
+            <div class="pillar-doc-list">
+              <div class="pillar-doc-item">
+                <span class="pillar-doc-num">03</span>
+                <div>
+                  <div class="pillar-doc-title">Deterministic TBML Rules (TBML-01–07)</div>
+                  <div class="pillar-doc-sub">4-domain data fusion · 30-day Master Case bundling · Compound 2-of-N gating</div>
+                </div>
+              </div>
+              <div class="pillar-doc-item">
+                <span class="pillar-doc-num">06</span>
+                <div>
+                  <div class="pillar-doc-title">60-Day Shadow Validation (MRM-VAL-OMNI-006)</div>
+                  <div class="pillar-doc-sub">PRA SS1/23 parallel run · 6 quantitative gates · Joint MLRO/MRM/Ops sign-off</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pillar III -->
+          <div id="pillar-card-pillar3" onclick="filterDocuments('pillar3', true)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')filterDocuments('pillar3', true)" class="pillar-card">
+            <div class="pillar-top">
+              <span class="pillar-badge pillar-badge-amber">Pillar III · SOP &amp; QA Audit</span>
+              <span class="pillar-filter-hint">Filter Docs →</span>
+            </div>
+            <h3>Tier-1 Playbook &amp; Retroactive QA Lookback</h3>
+            <p>
+              Operationalizes 45-minute Tier-1 Master Case reviews via an 11-item checklist while auditing all 90-day rapid closures under a 5.0% contagion expansion rule.
+            </p>
+            <div class="pillar-doc-list">
+              <div class="pillar-doc-item">
+                <span class="pillar-doc-num">04</span>
+                <div>
+                  <div class="pillar-doc-title">Tier-1 TBML Playbook (SOP-FCC-TBML-01)</div>
+                  <div class="pillar-doc-sub">5 timed phases (45m) · 11-item checklist · 5W narrative · 4-hour SAR SLA</div>
+                </div>
+              </div>
+              <div class="pillar-doc-item">
+                <span class="pillar-doc-num">05</span>
+                <div>
+                  <div class="pillar-doc-title">Retroactive QA Lookback (AUD-FCC-QA-009)</div>
+                  <div class="pillar-doc-sub">100% Tier-1 census · 4-grade defect rubric · 5.0% Trigger-to-100% expansion</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Three Lines of Defence Governance Matrix -->
+        <div class="lod-panel">
+          <div class="lod-panel-head">
+            <div>
+              <span class="section-eyebrow" style="margin-bottom:0.2rem;">Segregation of Duties · PRA SS1/23 &amp; FCA SYSC 6.1</span>
+              <h3 style="font-size:1.1rem;font-weight:700;color:var(--text-primary);">Three Lines of Defence Governance Responsibility Matrix</h3>
+            </div>
+            <div class="lod-controls" role="group" aria-label="Highlight Three Lines of Defence column">
+              <button type="button" onclick="highlight3LoD('all')" id="lod-btn-all" class="lod-btn active">All Lines</button>
+              <button type="button" onclick="highlight3LoD('1lod')" id="lod-btn-1lod" class="lod-btn">1st Line (FCC Ops &amp; DS)</button>
+              <button type="button" onclick="highlight3LoD('2lod')" id="lod-btn-2lod" class="lod-btn">2nd Line (MRM &amp; Compliance)</button>
+              <button type="button" onclick="highlight3LoD('3lod')" id="lod-btn-3lod" class="lod-btn">3rd Line (Internal Audit)</button>
+            </div>
+          </div>
+
+          <div class="table-scroll">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Governance Pillar</th>
+                  <th class="col-1lod">1st Line of Defence (FCC Ops &amp; Data Science)</th>
+                  <th class="col-2lod">2nd Line of Defence (MRM &amp; Compliance)</th>
+                  <th class="col-3lod">3rd Line of Defence (Internal Audit)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="row-heading">Model Tuning &amp; Thresholds</td>
+                  <td class="col-1lod">Proposes threshold adjustments and feature updates; maintains operational runbooks.</td>
+                  <td class="col-2lod">Independently validates model logic, back-tests false-negative risks, and approves/rejects changes.</td>
+                  <td class="col-3lod">Audits adherence to change-control gates and tests whether unapproved tuning occurred.</td>
+                </tr>
+                <tr>
+                  <td class="row-heading">Alert Capacity &amp; SLAs</td>
+                  <td class="col-1lod">Monitors daily queue aging; triggers Level 1 Circuit Breakers if volume exceeds 115% capacity.</td>
+                  <td class="col-2lod">Holds unilateral veto power to halt model updates or mandate surge staffing during capacity breaches.</td>
+                  <td class="col-3lod">Reviews historical queue metrics and evaluates the adequacy of analyst staffing models.</td>
+                </tr>
+                <tr>
+                  <td class="row-heading">Investigation Quality</td>
+                  <td class="col-1lod">Conducts 45-minute Tier-1 Master Case reviews; performs peer-level first-line QA checks.</td>
+                  <td class="col-2lod">Conducts independent monthly QA sampling (specifically targeting rapid closures under 15 mins).</td>
+                  <td class="col-3lod">Performs end-to-end thematic audits on complex typologies (e.g., annual TBML control testing).</td>
+                </tr>
+                <tr>
+                  <td class="row-heading">Vendor Oversight (OmniShield)</td>
+                  <td class="col-1lod">Manages day-to-day technical SLA performance and four-domain data pipeline health.</td>
+                  <td class="col-2lod">Conducts annual third-party model risk assessments, bias testing, and concept-drift reviews.</td>
+                  <td class="col-3lod">Evaluates vendor governance, contractual audit rights, and data security compliance.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. FILTERABLE & SEARCHABLE 6-DOCUMENT SUITE -->
+    <section id="documents" class="section-block editorial-grid-bg">
+      <div class="container">
+        <div style="margin-bottom:1.75rem;">
+          <span class="section-eyebrow" style="color:#6EE7B7;">Complete Deliverable Repository</span>
+          <h2 class="section-title">Filterable &amp; Searchable 6-Document Suite</h2>
+          <p class="section-desc">
+            Filter by governance pillar or search across rules, SLAs, regulatory citations, and control thresholds. Click <strong style="color:var(--text-primary);">Read Full Specification</strong> on any card to open the complete document on a warm-alabaster editorial sheet.
+          </p>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="filter-toolbar">
+          <div class="filter-tabs" role="tablist" aria-label="Filter documents by governance pillar">
+            <button type="button" data-filter="all" onclick="filterDocuments('all', false)" class="doc-filter-btn active">
+              All 6 Artifacts
+            </button>
+            <button type="button" data-filter="pillar1" onclick="filterDocuments('pillar1', false)" class="doc-filter-btn">
+              Pillar I: Governance &amp; AUP
+            </button>
+            <button type="button" data-filter="pillar2" onclick="filterDocuments('pillar2', false)" class="doc-filter-btn">
+              Pillar II: Rules &amp; Validation
+            </button>
+            <button type="button" data-filter="pillar3" onclick="filterDocuments('pillar3', false)" class="doc-filter-btn">
+              Pillar III: SOP &amp; QA Audit
+            </button>
+          </div>
+
+          <div class="search-box">
+            <svg class="search-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <input type="text" id="doc-search-input" oninput="handleDocSearch(this.value)" placeholder="Search rules, SLAs, PRA SS1/23, 5W..." class="search-input" aria-label="Search governance documents">
+            <button type="button" id="clear-search-btn" onclick="clearDocSearch()" class="search-clear-btn hidden" title="Clear search" aria-label="Clear search">✕</button>
+          </div>
+        </div>
+
+        <!-- Dynamic Cards Grid -->
+        <div id="doc-cards-grid" class="docs-grid"></div>
+
+        <!-- Empty State -->
+        <div id="doc-empty-state" class="empty-state-box hidden">
+          <p style="font-weight:700;color:var(--text-primary);margin-bottom:0.35rem;">No governance artifacts matched your search criteria.</p>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1rem;">Try resetting filters or searching terms like "TBML-05", "115%", "PRA SS1/23", or "45 minutes".</p>
+          <button type="button" onclick="resetAllDocFilters()" class="btn btn-primary-alabaster">Show All 6 Artifacts</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. TWO INTERACTIVE CONTROL SANDBOXES -->
+    <section id="simulators" class="section-block">
+      <div class="container">
+        <div style="margin-bottom:2.25rem;">
+          <span class="section-eyebrow">Interactive Governance &amp; Detection Sandboxes</span>
+          <h2 class="section-title">Hands-On TBML Rule &amp; Circuit-Breaker Control Simulators</h2>
+          <p class="section-desc">
+            Explore how deterministic red-flag indicators bundle fragmented wires into a single Master Case with plain-language SHAP/XAI risk drivers, and stress-test team capacity against MRM Gates 1 &amp; 2 and the Level 1 Capacity Breach rule.
+          </p>
+        </div>
+
+        <div class="sandboxes-grid">
+          <!-- SANDBOX A: TBML Rule & Master Case Simulator -->
+          <div class="sandbox-panel">
+            <div>
+              <div class="sandbox-head">
+                <div>
+                  <span class="sandbox-eyebrow">Sandbox A · Detection &amp; Investigation Controls</span>
+                  <h3 class="sandbox-title">TBML Rule &amp; Master Case Simulator</h3>
+                </div>
+                <span class="reg-badge">TBML-01..07 + SOP-01</span>
+              </div>
+
+              <div class="preset-label">Load Typology Scenario Preset:</div>
+              <div class="preset-row">
+                <button type="button" onclick="applyTbmlPreset('apex')" class="preset-btn preset-btn-amber">
+                  £4.2m ApexGlobal Shell Scheme
+                </button>
+                <button type="button" onclick="applyTbmlPreset('phantom')" class="preset-btn preset-btn-crimson">
+                  Phantom Cargo &amp; Over-Invoicing
+                </button>
+                <button type="button" onclick="applyTbmlPreset('circular')" class="preset-btn">
+                  Circular U-Turn &amp; Split Structuring
+                </button>
+                <button type="button" onclick="applyTbmlPreset('clean')" class="preset-btn preset-btn-emerald">
+                  Legitimate Commercial Trade
+                </button>
+              </div>
+
+              <!-- 7 Deterministic Rule Toggles -->
+              <div class="flags-grid">
+                <label class="flag-toggle-card">
+                  <input type="checkbox" id="flag-price" onchange="updateTbmlSimulator()" checked="">
+                  <div>
+                    <div class="flag-title">Commodity Unit-Price Variance ≥35%</div>
+                    <div class="flag-meta">TBML-01 · Invoice £68k vs Platts (+48%)</div>
+                  </div>
+                </label>
+
+                <label class="flag-toggle-card">
+                  <input type="checkbox" id="flag-sic" onchange="updateTbmlSimulator()">
+                  <div>
+                    <div class="flag-title">SIC vs. HS Commodity Mismatch</div>
+                    <div class="flag-meta">TBML-02 · IT Consultancy trading chips</div>
+                  </div>
+                </label>
+
+                <label class="flag-toggle-card">
+                  <input type="checkbox" id="flag-vessel" onchange="updateTbmlSimulator()">
+                  <div>
+                    <div class="flag-title">Phantom Shipping / Vessel AIS Mismatch</div>
+                    <div class="flag-meta">TBML-03 · Vessel 900nm from loading port</div>
+                  </div>
+                </label>
+
+                <label class="flag-toggle-card">
+                  <input type="checkbox" id="flag-thirdparty" onchange="updateTbmlSimulator()" checked="">
+                  <div>
+                    <div class="flag-title">Unrelated Third-Party Settlement</div>
+                    <div class="flag-meta">TBML-04 · BVI remitter (£145k settlement)</div>
+                  </div>
+                </label>
+
+                <label class="flag-toggle-card">
+                  <input type="checkbox" id="flag-shell" onchange="updateTbmlSimulator()" checked="">
+                  <div>
+                    <div class="flag-title">Shelf-Company Trade Surge ≤180d</div>
+                    <div class="flag-meta">TBML-05 · Inc. 64d · £100 cap · £4.2m flow</div>
+                  </div>
+                </label>
+
+                <label class="flag-toggle-card">
+                  <input type="checkbox" id="flag-circular" onchange="updateTbmlSimulator()">
+                  <div>
+                    <div class="flag-title">Circular / U-Turn Trade Routing</div>
+                    <div class="flag-meta">TBML-06 · 86% funds returned in 11 days</div>
+                  </div>
+                </label>
+
+                <label class="flag-toggle-card span-full">
+                  <input type="checkbox" id="flag-split" onchange="updateTbmlSimulator()">
+                  <div>
+                    <div class="flag-title">Split-Invoicing ≥4 Wires (£8k–£49,999)</div>
+                    <div class="flag-meta">TBML-07 · 6 sequential invoices = £238k rolling 14D sum between identical counterparties</div>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Master Case & XAI Banner Output -->
+              <div id="tbml-output-panel" class="xai-output-box">
+                <div class="xai-top-bar">
+                  <div class="xai-id-group">
+                    <span class="master-case-tag" id="master-case-id">MASTER CASE: MC-2026-8841</span>
+                    <span class="wire-bundle-note" id="wire-compression-badge">18 Fragmented Wires → 1 Consolidated Master Case</span>
+                  </div>
+                  <span class="override-pill" id="queue-routing-badge">TIER-1 NON-SUPPRESSIBLE OVERRIDE</span>
+                </div>
+
+                <div style="font-family:var(--font-mono);font-size:0.66rem;color:var(--text-muted);text-transform:uppercase;margin-bottom:0.35rem;">
+                  Triggered Deterministic Rules:
+                </div>
+                <div id="triggered-rules-list" class="triggered-rules-wrap"></div>
+
+                <div class="xai-alabaster-banner">
+                  <div class="xai-alabaster-label">OmniShield XAI Explainability Header (SHAP + Rule Drivers)</div>
+                  <p id="xai-narrative-text" class="xai-alabaster-text"></p>
+                </div>
+
+                <div class="xai-sla-footer">
+                  <span>Review Standard: <strong style="color:var(--text-primary);" id="mandatory-sla-text">45 Mins (Hard Floor: 15 Mins)</strong></span>
+                  <span style="color:#FCD34D;" id="auto-suppression-status">Auto-Suppression: BLOCKED (POL-FCC-AI-004 §4.2)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interactive 11-Item SOP-FCC-TBML-01 Checklist -->
+            <div class="sop-checklist-box">
+              <div class="checklist-top">
+                <div>
+                  <div class="checklist-heading">SOP-FCC-TBML-01 Mandatory 11-Item Verification Checklist</div>
+                  <div class="checklist-sub">All 11 checks required before disposition or 4-hour MLRO SAR escalation</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:0.5rem;">
+                  <span id="checklist-progress-label" style="font-family:var(--font-mono);font-size:0.74rem;font-weight:700;color:#7DD3FC;">0 / 11 Verified</span>
+                  <button type="button" onclick="toggleAllChecklist()" id="checklist-toggle-all-btn" class="lod-btn">Verify All</button>
+                </div>
+              </div>
+
+              <div class="progress-track">
+                <div id="checklist-progress-bar" class="progress-fill" style="width: 0%;"></div>
+              </div>
+
+              <div id="sop-checklist-container" class="checklist-scroll"></div>
+
+              <div class="disposition-bar">
+                <span style="color:var(--text-muted);">Disposition Gate:</span>
+                <span id="disposition-status-text" style="font-weight:700;color:#FCD34D;">LOCKED — 11 verification item(s) remaining</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SANDBOX B: Capacity & Circuit-Breaker Simulator -->
+          <div class="sandbox-panel">
+            <div>
+              <div class="sandbox-head">
+                <div>
+                  <span class="sandbox-eyebrow" style="color:#7DD3FC;">Sandbox B · Operational Governance</span>
+                  <h3 class="sandbox-title">Capacity &amp; Circuit-Breaker Simulator</h3>
+                </div>
+                <span class="reg-badge">POL-004 §5 · GATE 1 &amp; 2</span>
+              </div>
+
+              <div class="preset-label">Simulate Operational Regime:</div>
+              <div class="preset-row">
+                <button type="button" onclick="applyCapacityPreset('healthy')" class="preset-btn preset-btn-emerald">
+                  Post-Remediation Target (92.9%)
+                </button>
+                <button type="button" onclick="applyCapacityPreset('failure')" class="preset-btn preset-btn-crimson">
+                  Initial 14,200 Spike Failure
+                </button>
+                <button type="button" onclick="applyCapacityPreset('surge')" class="preset-btn preset-btn-amber">
+                  130% Seasonal Surge
+                </button>
+              </div>
+
+              <div class="sliders-stack">
+                <!-- Slider 1 -->
+                <div class="slider-card">
+                  <div class="slider-header">
+                    <label for="slider-analysts">Certified Analyst Headcount</label>
+                    <span id="val-analysts" class="slider-val">18 Analysts</span>
+                  </div>
+                  <input type="range" id="slider-analysts" min="5" max="40" value="18" oninput="updateCapacitySimulator()">
+                  <div class="slider-scale">
+                    <span>5 FTE (45m/case, 35h/wk)</span>
+                    <span id="calc-max-cases">Max Capacity: 840 cases/wk</span>
+                    <span>40 FTE</span>
+                  </div>
+                </div>
+
+                <!-- Slider 2 -->
+                <div class="slider-card">
+                  <div class="slider-header">
+                    <label for="slider-cases">Weekly Incoming Master Cases</label>
+                    <span id="val-cases" class="slider-val">780 Cases / wk</span>
+                  </div>
+                  <input type="range" id="slider-cases" min="200" max="1600" step="10" value="780" oninput="updateCapacitySimulator()">
+                  <div class="slider-scale">
+                    <span>200/wk</span>
+                    <span>Circuit-Breaker at &gt;115%</span>
+                    <span>1,600/wk</span>
+                  </div>
+                </div>
+
+                <!-- Slider 3 -->
+                <div class="slider-card">
+                  <div class="slider-header">
+                    <label for="slider-det-share">Deterministic Ruleset Capacity Share %</label>
+                    <span id="val-det-share" class="slider-val" style="color:#6EE7B7;">12% of Capacity</span>
+                  </div>
+                  <input type="range" id="slider-det-share" min="2" max="35" value="12" oninput="updateCapacitySimulator()">
+                  <div class="slider-scale">
+                    <span>2%</span>
+                    <span>MRM Gate 2 Cap: ≤ 15%</span>
+                    <span>35%</span>
+                  </div>
+                </div>
+
+                <!-- Slider 4 -->
+                <div class="slider-card">
+                  <div class="slider-header">
+                    <label for="slider-queue-age">Oldest Unreviewed Queue Age (Days)</label>
+                    <span id="val-queue-age" class="slider-val" style="color:#6EE7B7;">4 Calendar Days</span>
+                  </div>
+                  <input type="range" id="slider-queue-age" min="1" max="14" value="4" oninput="updateCapacitySimulator()">
+                  <div class="slider-scale">
+                    <span>1 Day</span>
+                    <span>Circuit-Breaker at &gt; 7 Days</span>
+                    <span>14 Days</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live Capacity Telemetry & Circuit-Breaker Banner -->
+            <div>
+              <div class="capacity-telemetry">
+                <div class="util-row">
+                  <span class="util-label">Projected Capacity Utilization</span>
+                  <span id="utilization-pct-display" class="util-number" style="color: rgb(110, 231, 183);">92.9%</span>
+                </div>
+                <div class="progress-track" style="height:9px;margin-bottom:0.65rem;">
+                  <div id="utilization-bar" class="progress-fill" style="width: 92.857143%; background: rgb(16, 185, 129);"></div>
+                </div>
+
+                <div class="gates-pair">
+                  <div id="gate1-box" class="gate-status-card">
+                    <div class="gate-status-title">MRM GATE 1 (85%–100%)</div>
+                    <div id="gate1-status" class="gate-status-val" style="color: rgb(110, 231, 183);">PASS · 93%</div>
+                  </div>
+                  <div id="gate2-box" class="gate-status-card">
+                    <div class="gate-status-title">MRM GATE 2 (≤15% TBML)</div>
+                    <div id="gate2-status" class="gate-status-val" style="color: rgb(110, 231, 183);">PASS · 12.0%</div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="circuit-breaker-banner" class="circuit-breaker-card">
+                <div class="cb-head">
+                  <span id="cb-indicator-dot" class="cb-dot" style="background: rgb(16, 185, 129);"></span>
+                  <span id="cb-title" class="cb-title" style="color: rgb(110, 231, 183);">NORMAL OPERATIONS — WITHIN CAPACITY GUARDRAILS</span>
+                </div>
+                <p id="cb-description" class="cb-body">Weekly workload (780 cases vs. 840 capacity) satisfies operational guardrails. Analysts maintain full 45-minute Master Case reviews with zero backlog drift.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. CORE COMPETENCIES & REGULATORY ALIGNMENT -->
+    <section id="competencies" class="section-block editorial-grid-bg" style="border-bottom:none;">
+      <div class="container">
+        <div style="margin-bottom:2.25rem;">
+          <span class="section-eyebrow" style="color:#6EE7B7;">Core Focus Areas</span>
+          <h2 class="section-title">AI Governance &amp; Financial Crime Compliance Competencies</h2>
+          <p class="section-desc">
+            Connecting regulatory risk governance, operational AML/TBML investigation standards, and second-line assurance across UK financial services frameworks.
+          </p>
+        </div>
+
+        <div class="competencies-grid">
+          <div class="comp-card">
+            <div class="comp-icon-box">01</div>
+            <h3>AI Governance &amp; Acceptable Use Policy</h3>
+            <p>
+              Drafting enforceable AI acceptable use policies, human-in-the-loop adjudication mandates, explainable AI (XAI) disposition standards, generative AI data safeguards, and capacity circuit-breakers.
+            </p>
+            <div class="comp-tags">
+              <span class="doc-tag">POL-FCC-AI-004</span>
+              <span class="doc-tag">Human-in-the-Loop</span>
+              <span class="doc-tag">3LoD Matrix</span>
+            </div>
+          </div>
+
+          <div class="comp-card">
+            <div class="comp-icon-box">02</div>
+            <h3>AML &amp; TBML Typology Control Design</h3>
+            <p>
+              Translating FATF and JMLSG trade-based money laundering red flags into structured business-logic specifications across SWIFT MT103/MT700, ISO 20022, UK Companies House, and maritime AIS datasets.
+            </p>
+            <div class="comp-tags">
+              <span class="doc-tag">FATF / JMLSG</span>
+              <span class="doc-tag">TBML-01..07</span>
+              <span class="doc-tag">SOP-FCC-TBML-01</span>
+            </div>
+          </div>
+
+          <div class="comp-card">
+            <div class="comp-icon-box">03</div>
+            <h3>Model Risk Governance (PRA SS1/23)</h3>
+            <p>
+              Structuring isolated 60-day shadow-mode validation plans, sensitivity testing matrices, blind SME precision/recall reviews, and capacity-locked production cutover gates.
+            </p>
+            <div class="comp-tags">
+              <span class="doc-tag">PRA SS1/23</span>
+              <span class="doc-tag">Shadow Validation</span>
+              <span class="doc-tag">MRM-VAL-OMNI-006</span>
+            </div>
+          </div>
+
+          <div class="comp-card">
+            <div class="comp-icon-box">04</div>
+            <h3>QA Lookback Auditing &amp; FCA Remediation</h3>
+            <p>
+              Designing risk-stratified retroactive QA sampling protocols, four-grade defect rubrics, 5.0% contagion expansion rules, and NCA SAR / FCA Principle 11 governance reporting.
+            </p>
+            <div class="comp-tags">
+              <span class="doc-tag">FCA SYSC 6.1</span>
+              <span class="doc-tag">POCA 2002 / MLRs</span>
+              <span class="doc-tag">AUD-FCC-QA-009</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- FOOTER & SANITIZED GITHUB EXPORT UTILITY BAR                          -->
+  <!-- ===================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <!-- Zero-Secret-Leak GitHub Export Bar -->
+      <div class="export-bar">
+        <div>
+          <div class="export-bar-title">
+            <span style="width:7px;height:7px;border-radius:50%;background:#10B981;"></span>
+            <span>Clean GitHub Pages Deployment Utility</span>
+          </div>
+          <p class="export-bar-desc">
+            Sanitizes the DOM via <code>getCleanExportHTML()</code>, removing any preview iframe wrapper scripts so your repository stays completely free of secret-scanning alerts.
+          </p>
+        </div>
+
+        <div class="export-bar-actions">
+          <button type="button" onclick="downloadCleanIndexHTML()" class="btn btn-emerald">
+            Download Clean index.html
+          </button>
+          <button type="button" onclick="copyCleanHTMLToClipboard()" class="btn btn-ghost-slate">
+            Copy Clean HTML (For GitHub Editor)
+          </button>
+          <span id="copied-clean-badge" class="copied-badge">✓ Copied Clean HTML!</span>
+        </div>
+      </div>
+
+      <!-- Author Footer Attribution -->
+      <div class="footer-bottom">
+        <div>
+          <strong style="color:var(--text-primary);">© 2026 Elena Harbuzariu</strong>
+          · Responsible AI &amp; Financial Crime Compliance Practitioner
+          · London, UK
+          · <a href="mailto:elenaharbuzariu300@gmail.com?subject=Responsible%20AI%20%26%20FCC%20Portfolio%20Inquiry" style="color:var(--text-secondary);" target="_blank" rel="noopener noreferrer">elenaharbuzariu300@gmail.com</a>
+        </div>
+
+        <div class="footer-links">
+          <a href="mailto:elenaharbuzariu300@gmail.com?subject=Responsible%20AI%20%26%20FCC%20Portfolio%20Inquiry" target="_blank" rel="noopener noreferrer">Email</a>
+          <span>·</span>
+          <a href="https://www.linkedin.com/in/elenaharbuzariu" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <span>·</span>
+          <a href="https://github.com/elenaharbuzariu" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL: FULL-SPECIFICATION DOCUMENT READER (WARM ALABASTER PAPER)      -->
+  <!-- ===================================================================== -->
+  <div id="doc-reader-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-doc-title">
+    <div class="modal-shell">
+      <!-- Top Switcher Tabs -->
+      <div class="modal-switcher-bar">
+        <div class="modal-tabs-list" id="modal-doc-switcher"></div>
+        <button type="button" onclick="closeDocModal()" class="lod-btn" aria-label="Close specification modal">✕ Close</button>
+      </div>
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.45rem;">
+            <span id="modal-doc-pillar" class="pillar-badge pillar-badge-sky">PILLAR I</span>
+            <span id="modal-doc-ref" class="reg-badge">POL-FCC-AI-004</span>
+          </div>
+          <h3 id="modal-doc-title" class="modal-title">Document Title</h3>
+        </div>
+
+        <div class="modal-header-actions">
+          <button type="button" onclick="copyCurrentDocText()" class="btn btn-ghost-slate">
+            Copy Specification
+          </button>
+          <button type="button" onclick="closeDocModal()" class="btn btn-primary-alabaster">
+            Done
+          </button>
+        </div>
+      </div>
+
+      <!-- Warm Alabaster Editorial Sheet Body -->
+      <div id="modal-doc-body" class="modal-paper-body"></div>
+
+      <!-- Modal Footer: Previous / Next Artifact Navigation -->
+      <div class="modal-footer">
+        <button type="button" onclick="navigateDocModal(-1)" class="lod-btn">← Previous Artifact</button>
+        <span id="modal-doc-counter">Artifact 1 of 6</span>
+        <button type="button" onclick="navigateDocModal(1)" class="lod-btn">Next Artifact →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- SELF-CONTAINED ES6 JAVASCRIPT (ZERO EXTERNAL SDKS OR API KEYS)        -->
+  <!-- ===================================================================== -->
+  
+
+</body></html>
