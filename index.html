@@ -2,18 +2,18 @@
 <html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Elena Harbuzariu | Responsible AI &amp; Financial Crime Compliance Portfolio</title>
-  <meta name="author" content="Elena Harbuzariu">
-  <meta name="description" content="Elena Harbuzariu — Responsible AI &amp; Financial Crime Compliance (FCC) Practitioner in London, United Kingdom. Currently completing a 100-day work experience placement at RAIMS applying the EU AI Act, NIST AI RMF 1.0, and ISO/IEC 42001 (AIMS), alongside a 6-document AML/TBML governance case study.">
+  <title>Elena-Liliana Harbuzariu | Responsible AI &amp; Financial Crime Compliance Portfolio</title>
+  <meta name="author" content="Elena-Liliana Harbuzariu">
+  <meta name="description" content="Elena-Liliana Harbuzariu — Responsible AI &amp; Financial Crime Compliance (FCC) Practitioner in London, United Kingdom. Currently completing a 100-day work experience placement at RAIMS applying the EU AI Act, NIST AI RMF 1.0, and ISO/IEC 42001 (AIMS), alongside a 6-document AML/TBML governance case study.">
 
   <!-- Canonical & OpenGraph Metadata for LinkedIn & Social Link Previews -->
   <link rel="canonical" href="https://elehaharbuzariu-portfolio.github.io">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://elehaharbuzariu-portfolio.github.io">
-  <meta property="og:title" content="Elena Harbuzariu — Responsible AI &amp; Financial Crime Compliance Practitioner">
+  <meta property="og:title" content="Elena-Liliana Harbuzariu — Responsible AI &amp; Financial Crime Compliance Practitioner">
   <meta property="og:description" content="AI Governance &amp; FCC Analyst currently completing a 100-day placement at RAIMS applying the EU AI Act, NIST AI RMF 1.0, and ISO/IEC 42001 (AIMS), showcased with a 6-document AML/TBML governance capstone case study.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Elena Harbuzariu — Responsible AI &amp; Financial Crime Compliance Portfolio">
+  <meta name="twitter:title" content="Elena-Liliana Harbuzariu — Responsible AI &amp; Financial Crime Compliance Portfolio">
   <meta name="twitter:description" content="100-day AI Governance placement at RAIMS (EU AI Act, NIST AI RMF 1.0, ISO/IEC 42001) &amp; £4.2m AML/TBML Governance Capstone Case Study.">
 
   <style>
@@ -154,7 +154,7 @@
     }
 
     .brand-monogram {
-      width: 40px;
+      width: 44px;
       height: 40px;
       border-radius: 10px;
       background: var(--alabaster-50);
@@ -165,7 +165,8 @@
       justify-content: center;
       font-family: var(--font-mono);
       font-weight: 800;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
+      letter-spacing: -0.02em;
       flex-shrink: 0;
     }
 
@@ -2655,10 +2656,10 @@
     <div class="container">
       <div class="header-inner">
         <a href="#overview" class="brand-cluster">
-          <div class="brand-monogram">EH</div>
+          <div class="brand-monogram">ELH</div>
           <div class="brand-info">
             <div class="brand-title-line">
-              <span class="brand-name">Elena Harbuzariu</span>
+              <span class="brand-name">Elena-Liliana Harbuzariu</span>
               <span class="brand-badge">RAIMS · 100-DAY PLACEMENT</span>
             </div>
             <div class="brand-sub">Responsible AI &amp; Financial Crime Compliance</div>
@@ -2717,7 +2718,7 @@
                 <span class="dossier-dot"></span>
                 <span>Responsible AI &amp; Financial Crime Compliance (FCC) Practitioner</span>
               </div>
-              <h2 class="dossier-name">Elena Harbuzariu</h2>
+              <h2 class="dossier-name">Elena-Liliana Harbuzariu</h2>
               <div class="dossier-subline">
                 <span>AI Governance &amp; FCC Analyst</span>
                 <span class="location-pill">London, United Kingdom</span>
@@ -3436,7 +3437,7 @@
 
       <div class="footer-meta">
         <div>
-          <strong style="color:var(--text-primary);">© 2026 Elena Harbuzariu</strong>
+          <strong style="color:var(--text-primary);">© 2026 Elena-Liliana Harbuzariu</strong>
           · Responsible AI &amp; Financial Crime Compliance Practitioner (100-Day Placement at RAIMS)
           · London, United Kingdom
           · <a href="mailto:elenaharbuzariu300@gmail.com?subject=Responsible%20AI%20%26%20FCC%20Portfolio%20Inquiry" style="color:var(--text-secondary);" target="_blank" rel="noopener noreferrer">elenaharbuzariu300@gmail.com</a>
@@ -3474,9 +3475,12 @@
 
         <div class="doc-modal-actions">
           <button type="button" onclick="saveDocAsPDF(activeModalDocId)" class="btn btn-amber">
-            Print / Save PDF
+            Download PDF
           </button>
-          <a id="doc-modal-gdoc" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-slate">
+          <button type="button" onclick="printDocSheet(activeModalDocId)" class="btn btn-slate">
+            Print Sheet
+          </button>
+          <a id="doc-modal-gdoc" href="#" target="_blank" rel="noopener noreferrer" onclick="return openExternalDoc(event, this.href, document.getElementById('doc-modal-id').textContent)" class="btn btn-slate">
             Google Doc ↗
           </a>
           <button type="button" onclick="copyModalDocText()" class="btn btn-slate">
@@ -4188,7 +4192,7 @@
           if (triggerDownloadAfter) {
             downloadCleanHTML();
           }
-        }, 50);
+        }, 60);
       }
 
       function closeExportModal() {
@@ -4259,6 +4263,21 @@
         }
       }
 
+      function triggerBlobDownload(blob, filename) {
+        const blobUrl = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = filename;
+        a.rel = 'noopener';
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function () {
+          URL.revokeObjectURL(blobUrl);
+        }, 2500);
+      }
+
       function downloadCleanHTML() {
         const textarea = document.getElementById('clean-html-textarea');
         const statusEl = document.getElementById('export-modal-status');
@@ -4268,21 +4287,11 @@
 
         try {
           const blob = new Blob([cleanHtml], { type: 'text/html;charset=utf-8' });
-          const blobUrl = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = blobUrl;
-          a.download = 'index.html';
-          a.style.display = 'none';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          setTimeout(function () {
-            URL.revokeObjectURL(blobUrl);
-          }, 1500);
+          triggerBlobDownload(blob, 'index.html');
 
           if (statusEl) {
             statusEl.className = 'export-status-box ok';
-            statusEl.innerHTML = '<strong>Download triggered for <code>index.html</code>.</strong> If your browser preview blocks file downloads, click <strong>Select &amp; Copy Code</strong> above and paste directly into GitHub.';
+            statusEl.innerHTML = '<strong>Download started for <code>index.html</code>.</strong> (Note: if your browser preview sandbox blocks file downloads, click <strong>Select &amp; Copy Code</strong> above and paste directly into GitHub.)';
           }
           showToast('Triggered clean index.html download.', '#10b981');
         } catch (err) {
@@ -4292,6 +4301,25 @@
           }
           showToast('Use Select & Copy Code in the modal to copy index.html.', '#d97706');
         }
+      }
+
+      function openExternalDoc(event, url, label) {
+        if (!url || url === '#') return false;
+        // On GitHub Pages or normal tabs, allow standard new-tab navigation; in sandboxed preview frames, also copy link as backup
+        let opened = null;
+        try {
+          opened = window.open(url, '_blank', 'noopener,noreferrer');
+        } catch (err) {
+          opened = null;
+        }
+        if (opened) {
+          if (event) event.preventDefault();
+          return false;
+        }
+        // Fallback if sandboxed preview iframe blocks window.open
+        if (event) event.preventDefault();
+        copyToClipboard(url, 'Preview frame blocked external popup — copied ' + (label || 'Google Doc') + ' link to clipboard!');
+        return false;
       }
 
       // =====================================================================
@@ -4378,13 +4406,13 @@
               '<div>' +
                 '<div class="doc-controls-box">' + esc(doc.controlsBadge) + '</div>' +
                 '<div class="doc-card-actions">' +
-                  '<button type="button" data-doc-action="read" data-doc-id="' + esc(doc.id) + '" class="btn btn-doc-read">' +
+                  '<button type="button" onclick="openDocModal(\'' + esc(doc.id) + '\')" data-doc-action="read" data-doc-id="' + esc(doc.id) + '" class="btn btn-doc-read">' +
                     '<span>Read Full Spec</span><span>&rarr;</span>' +
                   '</button>' +
-                  '<button type="button" data-doc-action="pdf" data-doc-id="' + esc(doc.id) + '" class="btn btn-doc-pdf">' +
+                  '<button type="button" onclick="saveDocAsPDF(\'' + esc(doc.id) + '\')" data-doc-action="pdf" data-doc-id="' + esc(doc.id) + '" class="btn btn-doc-pdf">' +
                     '<span>Save PDF</span>' +
                   '</button>' +
-                  '<a href="' + esc(doc.googleDocUrl) + '" target="_blank" rel="noopener noreferrer" class="btn btn-doc-gdoc">' +
+                  '<a href="' + esc(doc.googleDocUrl) + '" target="_blank" rel="noopener noreferrer" onclick="return openExternalDoc(event, \'' + esc(doc.googleDocUrl) + '\', \'' + esc(doc.code) + '\')" class="btn btn-doc-gdoc">' +
                     '<span>Google Doc &#8599;</span>' +
                   '</a>' +
                 '</div>' +
@@ -4483,11 +4511,237 @@
         const tmp = document.createElement('div');
         tmp.innerHTML = buildSpecHtml(doc);
         const divider = '================================================================';
-        const fullText = doc.title + ' (' + doc.code + ')\n' + divider + '\n\n' + tmp.innerText.trim();
+        const fullText = doc.title + ' (' + doc.code + ')\nPrepared by Elena-Liliana Harbuzariu\n' + divider + '\n\n' + tmp.innerText.trim();
         copyToClipboard(fullText, 'Copied ' + doc.code + ' specification text to clipboard.');
       }
 
+      // Pure-JavaScript PDF 1.4 Binary Generator (Generates real downloadable .pdf files with zero external libraries)
+      function toPdfAscii(str) {
+        return String(str || '')
+          .replace(/\u2014/g, '--')
+          .replace(/\u2013/g, '-')
+          .replace(/\u00A3/g, 'GBP ')
+          .replace(/\u2265/g, '>=')
+          .replace(/\u2264/g, '<=')
+          .replace(/\u2192/g, '->')
+          .replace(/\u00B7/g, '|')
+          .replace(/[\u2018\u2019]/g, "'")
+          .replace(/[\u201C\u201D]/g, '"')
+          .replace(/[^\x20-\x7E]/g, ' ');
+      }
+
+      function escapePdfText(str) {
+        return toPdfAscii(str)
+          .replace(/\\/g, '\\\\')
+          .replace(/\(/g, '\\(')
+          .replace(/\)/g, '\\)');
+      }
+
+      function wrapPdfText(text, maxChars) {
+        const clean = toPdfAscii(text).replace(/\s+/g, ' ').trim();
+        if (!clean) return [];
+        const words = clean.split(' ');
+        const lines = [];
+        let line = '';
+        for (let i = 0; i < words.length; i++) {
+          const w = words[i];
+          if (!line) {
+            line = w;
+          } else if (line.length + 1 + w.length <= maxChars) {
+            line += ' ' + w;
+          } else {
+            lines.push(line);
+            line = w;
+          }
+        }
+        if (line) lines.push(line);
+        return lines;
+      }
+
+      function buildRealPdfBlob(doc) {
+        const pages = [[]];
+        let y = 735;
+
+        function newPage() {
+          pages.push([]);
+          y = 770;
+          pages[pages.length - 1].push(
+            '0.35 0.40 0.48 rg BT /F1 8 Tf 50 806 Td (' +
+            escapePdfText('Elena-Liliana Harbuzariu | ' + doc.code + ' - ' + doc.categoryLabel) +
+            ') Tj ET'
+          );
+          pages[pages.length - 1].push('0.82 0.85 0.90 RG 0.6 w 50 798 m 545 798 l S');
+        }
+
+        function ensureSpace(needed) {
+          if (y - needed < 64) {
+            newPage();
+          }
+        }
+
+        function addWrapped(text, font, size, maxChars, indent, lineHeight, rgb) {
+          const lines = wrapPdfText(text, maxChars);
+          lines.forEach(function (ln) {
+            ensureSpace(lineHeight);
+            pages[pages.length - 1].push(
+              rgb + ' rg BT ' + font + ' ' + size + ' Tf ' + (50 + indent) + ' ' + y + ' Td (' +
+              escapePdfText(ln) + ') Tj ET'
+            );
+            y -= lineHeight;
+          });
+        }
+
+        // Page 1 Executive Header Banner
+        pages[0].push('0.06 0.09 0.16 rg 50 756 495 46 re f');
+        pages[0].push(
+          '1 1 1 rg BT /F2 10.5 Tf 62 783 Td (' +
+          escapePdfText('ELENA-LILIANA HARBUZARIU | RESPONSIBLE AI & FINANCIAL CRIME COMPLIANCE') +
+          ') Tj ET'
+        );
+        pages[0].push(
+          '0.98 0.75 0.14 rg BT /F1 8.5 Tf 62 767 Td (' +
+          escapePdfText('SPECIFICATION ID: ' + doc.code + '   |   CATEGORY: ' + doc.categoryLabel.toUpperCase()) +
+          ') Tj ET'
+        );
+
+        // Document Title
+        addWrapped(doc.title, '/F2', 13, 66, 0, 17, '0.06 0.09 0.16');
+        y -= 4;
+
+        // Metadata Block
+        if (doc.meta && doc.meta.length) {
+          doc.meta.forEach(function (pair) {
+            addWrapped(pair[0] + ': ' + pair[1], '/F1', 8.8, 92, 4, 12.5, '0.25 0.31 0.40');
+          });
+          y -= 4;
+          ensureSpace(8);
+          pages[pages.length - 1].push('0.75 0.78 0.84 RG 0.8 w 50 ' + y + ' m 545 ' + y + ' l S');
+          y -= 14;
+        }
+
+        // Document Sections
+        (doc.sections || []).forEach(function (sec) {
+          ensureSpace(26);
+          addWrapped(sec.heading, '/F2', 11, 78, 0, 15, '0.06 0.09 0.16');
+          y -= 2;
+
+          if (sec.paragraphs) {
+            sec.paragraphs.forEach(function (p) {
+              addWrapped(p, '/F1', 9.5, 88, 0, 13.5, '0.16 0.21 0.30');
+              y -= 4;
+            });
+          }
+
+          if (sec.callout) {
+            addWrapped('[' + sec.callout.title + '] ' + sec.callout.text, '/F2', 9.2, 86, 6, 13, '0.55 0.15 0.15');
+            y -= 5;
+          }
+
+          if (sec.boxes) {
+            sec.boxes.forEach(function (box) {
+              addWrapped('- ' + box.title + ': ' + box.text, '/F1', 9.2, 86, 6, 13, '0.16 0.21 0.30');
+              y -= 3;
+            });
+          }
+
+          if (sec.bullets) {
+            sec.bullets.forEach(function (b) {
+              addWrapped('- ' + b.lead + ' ' + b.text, '/F1', 9.2, 86, 6, 13, '0.16 0.21 0.30');
+              y -= 3;
+            });
+          }
+
+          if (sec.rules) {
+            sec.rules.forEach(function (rule) {
+              addWrapped(rule.name, '/F2', 9.5, 84, 4, 13.5, '0.06 0.09 0.16');
+              addWrapped('Logic: ' + rule.logic, '/F1', 8.5, 92, 10, 12, '0.25 0.31 0.40');
+              addWrapped('Control Action: ' + rule.action, '/F1', 9, 86, 10, 12.5, '0.16 0.21 0.30');
+              y -= 4;
+            });
+          }
+
+          if (sec.table) {
+            sec.table.rows.forEach(function (row) {
+              addWrapped('- ' + row.join('  |  '), '/F1', 8.8, 88, 6, 12.5, '0.16 0.21 0.30');
+              y -= 2;
+            });
+          }
+
+          y -= 6;
+        });
+
+        // Add Page Footers
+        const totalPages = pages.length;
+        for (let p = 0; p < totalPages; p++) {
+          pages[p].push('0.82 0.85 0.90 RG 0.6 w 50 52 m 545 52 l S');
+          pages[p].push(
+            '0.40 0.45 0.52 rg BT /F1 8 Tf 50 40 Td (' +
+            escapePdfText('Elena-Liliana Harbuzariu | elehaharbuzariu-portfolio.github.io | Page ' + (p + 1) + ' of ' + totalPages) +
+            ') Tj ET'
+          );
+        }
+
+        // Assemble Valid PDF 1.4 Byte Stream
+        const objects = [];
+        const pageObjIds = [];
+        for (let p = 0; p < totalPages; p++) {
+          pageObjIds.push((6 + p * 2) + ' 0 R');
+        }
+
+        objects[1] = '<< /Type /Catalog /Pages 2 0 R >>';
+        objects[2] = '<< /Type /Pages /Kids [ ' + pageObjIds.join(' ') + ' ] /Count ' + totalPages + ' >>';
+        objects[3] = '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>';
+        objects[4] = '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>';
+
+        for (let p = 0; p < totalPages; p++) {
+          const streamContent = pages[p].join('\n');
+          const contentObjId = 5 + p * 2;
+          const pageObjId = 6 + p * 2;
+          objects[contentObjId] = '<< /Length ' + streamContent.length + ' >>\nstream\n' + streamContent + '\nendstream';
+          objects[pageObjId] =
+            '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] ' +
+            '/Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> ' +
+            '/Contents ' + contentObjId + ' 0 R >>';
+        }
+
+        let pdf = '%PDF-1.4\n';
+        const offsets = [0];
+        for (let id = 1; id < objects.length; id++) {
+          offsets[id] = pdf.length;
+          pdf += id + ' 0 obj\n' + objects[id] + '\nendobj\n';
+        }
+
+        const xrefStart = pdf.length;
+        pdf += 'xref\n0 ' + objects.length + '\n';
+        pdf += '0000000000 65535 f \n';
+        for (let id = 1; id < objects.length; id++) {
+          const offStr = String(offsets[id]).padStart(10, '0');
+          pdf += offStr + ' 00000 n \n';
+        }
+        pdf += 'trailer\n<< /Size ' + objects.length + ' /Root 1 0 R >>\nstartxref\n' + xrefStart + '\n%%EOF';
+
+        const bytes = new Uint8Array(pdf.length);
+        for (let i = 0; i < pdf.length; i++) {
+          bytes[i] = pdf.charCodeAt(i) & 0xff;
+        }
+        return new Blob([bytes], { type: 'application/pdf' });
+      }
+
       function saveDocAsPDF(docId) {
+        const doc = PORTFOLIO_DOCS.find(function (d) { return d.id === docId; });
+        if (!doc) return;
+
+        const safeFileName = doc.code.replace(/[^A-Za-z0-9_-]/g, '_') + '_Elena-Liliana_Harbuzariu.pdf';
+        try {
+          const pdfBlob = buildRealPdfBlob(doc);
+          triggerBlobDownload(pdfBlob, safeFileName);
+          showToast('Downloaded ' + safeFileName + ' (PDF).', '#10b981');
+        } catch (err) {
+          printDocSheet(docId);
+        }
+      }
+
+      function printDocSheet(docId) {
         const doc = PORTFOLIO_DOCS.find(function (d) { return d.id === docId; });
         const printSheet = document.getElementById('print-sheet');
         if (!doc || !printSheet) return;
@@ -4496,16 +4750,16 @@
           '<div class="print-doc-header">' +
             '<div class="print-doc-kicker">' + esc(doc.categoryLabel) + ' &middot; Specification ID: ' + esc(doc.code) + '</div>' +
             '<h1 class="print-doc-title">' + esc(doc.title) + '</h1>' +
-            '<div class="print-doc-meta">Prepared by Elena Harbuzariu &middot; Responsible AI &amp; Financial Crime Compliance Practitioner (RAIMS &amp; FCC Portfolio)</div>' +
+            '<div class="print-doc-meta">Prepared by Elena-Liliana Harbuzariu &middot; Responsible AI &amp; Financial Crime Compliance Practitioner (RAIMS &amp; FCC Portfolio)</div>' +
           '</div>' +
           '<div class="print-doc-body">' + buildSpecHtml(doc) + '</div>' +
           '<div class="print-doc-footer">' +
             '<span>' + esc(doc.code) + ' &middot; ApexGlobal Bank Capstone Case Study</span>' +
-            '<span>Elena Harbuzariu &middot; elehaharbuzariu-portfolio.github.io</span>' +
+            '<span>Elena-Liliana Harbuzariu &middot; elehaharbuzariu-portfolio.github.io</span>' +
           '</div>';
 
         document.body.classList.add('printing-a4-doc');
-        showToast('Formatting A4 PDF for ' + doc.code + ' — select "Save as PDF" in the print dialog.', '#b45309');
+        showToast('Opening print dialog for ' + doc.code + '...', '#b45309');
 
         const cleanupAfterPrint = function () {
           document.body.classList.remove('printing-a4-doc');
@@ -4834,6 +5088,7 @@
       window.closeExportModal = closeExportModal;
       window.selectAndCopyCleanHTML = selectAndCopyCleanHTML;
       window.downloadCleanHTML = downloadCleanHTML;
+      window.openExternalDoc = openExternalDoc;
       window.select3LoD = select3LoD;
       window.filterDocs = filterDocs;
       window.searchDocs = searchDocs;
@@ -4844,6 +5099,7 @@
       window.closeDocModal = closeDocModal;
       window.copyModalDocText = copyModalDocText;
       window.saveDocAsPDF = saveDocAsPDF;
+      window.printDocSheet = printDocSheet;
       window.applyTbmlPreset = applyTbmlPreset;
       window.updateTbmlSandbox = updateTbmlSandbox;
       window.toggleSopCheck = toggleSopCheck;
